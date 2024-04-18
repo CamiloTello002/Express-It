@@ -31,13 +31,17 @@ header a.logo {
 
 header nav {
   display: flex;
-  gap: 5px;
+  gap: 15px;
 }
 
 div.post {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
-div.post img {
-  width: 50%;
+div.post div.image {
 }
+
+/* div.post img {
+  width: 50%;
+} */

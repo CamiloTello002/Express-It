@@ -1,3 +1,11 @@
 ReactDOM is the glue between React and the DOM (Document Object Model)
 react-dom package is more for web integration
 It literally renders the HTML elements
+
+
+WHY DO WE USE className instead of class?
+Because jsx is transpiled into JavaScript functions, and if you transpile it with 'class', you'll likely run into errors :(
+
+What is the fr unit in CSS?
+It stands for fraction (fraction of the available space). That helps us to specify sizes or lenghts relative to the AVAILABLE space in the grid container.
+The pixels it actually occupies depend on two things: the 

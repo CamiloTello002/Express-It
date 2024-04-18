@@ -13,11 +13,13 @@ function App() {
         </nav>
       </header>
 
-      <div class="post">
-        <img
-          src="https://pbs.twimg.com/profile_images/1759330620160049152/2i_wkOoK_400x400.jpg"
-          alt=""
-        />
+      <div className="post">
+        <div className="image">
+          <img
+            src="https://pbs.twimg.com/profile_images/1759330620160049152/2i_wkOoK_400x400.jpg"
+            alt=""
+          />
+        </div>
         <div className="texts">
           <h2>theprimeagen is a good programmer</h2>
           <p>
