@@ -2,6 +2,11 @@ body {
   color: #222;
 }
 
+img {
+  /* Takes all available space on the width */
+  max-width: 100%;
+}
+
 main {
   padding: 10px;
   max-width: 500px;
@@ -27,4 +32,7 @@ header a.logo {
 header nav {
   display: flex;
   gap: 5px;
+}
+
+div.post {
 }
