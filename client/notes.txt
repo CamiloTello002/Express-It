@@ -1,0 +1,3 @@
+ReactDOM is the glue between React and the DOM (Document Object Model)
+react-dom package is more for web integration
+It literally renders the HTML elements
