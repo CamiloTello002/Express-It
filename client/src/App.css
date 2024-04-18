@@ -22,3 +22,8 @@ header a {
 header a.logo {
   font-weight: bold;
 }
+
+header nav {
+  display: flex;
+  gap: 9px;
+}
