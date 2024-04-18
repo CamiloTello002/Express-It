@@ -35,4 +35,9 @@ header nav {
 }
 
 div.post {
+  display: flex;
+}
+
+div.post img {
+  width: 50%;
 }

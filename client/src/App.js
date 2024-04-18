@@ -18,12 +18,14 @@ function App() {
           src="https://pbs.twimg.com/profile_images/1759330620160049152/2i_wkOoK_400x400.jpg"
           alt=""
         />
-        <h2>theprimeagen is a good programmer</h2>
-        <p>
-          Theprimeagen is a programmer from the USA, he is about 37 years old
-          and he has a good understanding of Neovim and plugins. He's also a fan
-          of Rust and Lua languages
-        </p>
+        <div className="texts">
+          <h2>theprimeagen is a good programmer</h2>
+          <p>
+            Theprimeagen is a programmer from the USA, he is about 37 years old
+            and he has a good understanding of Neovim and plugins. He's also a
+            fan of Rust and Lua languages
+          </p>
+        </div>
       </div>
     </main>
   );
