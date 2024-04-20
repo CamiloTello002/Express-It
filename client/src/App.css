@@ -96,4 +96,14 @@ input {
 
 button {
   width: 100%;
+  display: block;
+  border: 0;
+  background-color: #555;
+  color: #fff;
+  border-radius: 5px;
+  padding: 7px 0px;
+}
+
+form h1 {
+  text-align: center;
 }
