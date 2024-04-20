@@ -80,3 +80,28 @@ render is used for making a conditional logic for rendering a component, while c
 Another option is to drop the render or component attribute and specify the component to be rendered as a child component of Route.
 
 We also have the option of making a component visible in ALL PAGES. We just put the component above the Route components.
+
+
+
+## MISTAKE ##
+I was trying to install a React dependency OUTSIDE of the client directory.
+Please, don't do that again xd
+
+Another note about BrowserRouter...
+It STORES the current location in the browser's address bar using clean URLs. It also navigates using the browser's built-in HISTORY STACK
+
+
+**MORE ABOUT ROUTING**
+According to the docs, routing is about building a full user interface that MAPS to the URL.
+*It has three fundamental jobs*
+1. Subscribing and manipulating the HISTORY STACK
+2. Match the URL to my ROUTES
+3. Rendering a nested UI from the route matches.
+
+Some distinctions:
+- URL -> what you see in the address bar.
+- Location -> React Router object and specifies WHERE the user is at.
+- Location state -> Value with a location that persists in browser's memory
+- History stack -> the history, basically.
+- Client-side Routing -> enables devs to MANIPULATE the browser history stack WITHOUT making a document request to the server.
+- History -> Object that allows React Router to subscribe to changes in the URL, and provides APIs to MANIPULATE the browser history stack programatically
