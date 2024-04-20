@@ -19,6 +19,7 @@ header {
   flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 50px;
+  /* align-items: center; */
 }
 
 header a {
@@ -28,6 +29,7 @@ header a {
 
 header a.logo {
   font-weight: bold;
+  font-size: 2rem;
 }
 
 header nav {
