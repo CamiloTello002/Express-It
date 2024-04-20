@@ -73,3 +73,14 @@ div.post div.image {
   display: flex;
   justify-content: center;
 }
+
+form.login,
+form.register {
+  max-width: 400px;
+  /* This is for centering the field inputs */
+  margin: 0 auto;
+}
+
+input {
+  display: block;
+}

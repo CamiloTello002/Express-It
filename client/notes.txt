@@ -124,3 +124,5 @@ VAMOS POR EL MINUTO... 32:34
 
 
 Often times, a component needs to return multiple elements at once. In order to achieve this in jsx, we need to use the fragment <> </>
+
+Remember that when an element is displayed as a block, it occupies an entire line, not sharing it with another existing element
