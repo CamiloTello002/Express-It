@@ -58,3 +58,25 @@ h1 {
 H
 <time> element in HTML
 I didn't know about this one. We can provide it with an attribute that has a machine-readable date
+
+A little recap...
+WHAT IS ROUTING?
+It is the process of determining HOW an application RESPONDS to a given URL (or path). 
+It usually maps URLs to specific pieces of application logic or COMPONENTS that should be rendered based on the url.
+
+In React, we can define different "routes" inside our single-page application and RENDER different components based on the current URL.
+
+So, when a route MATCHES the current URL, the corresponding component is rendered.
+
+**History management**
+If we route, it means we must manage the history stack. It's useful for allowing users to navigate forward and backward within the application WITHOUT reloading the entire page
+
+**React Router DOM**
+It uses the <BrowserRouter> component that utilizes the HTML5 history API, this helps to keep the UI in sync with the URL. 
+
+Inside this BrowserRouter, we can define multiple Route elements, where we specify the path and the element to be rendered.
+In this case, we can use render or component.
+render is used for making a conditional logic for rendering a component, while component directly specifies the element to be rendered.
+Another option is to drop the render or component attribute and specify the component to be rendered as a child component of Route.
+
+We also have the option of making a component visible in ALL PAGES. We just put the component above the Route components.
