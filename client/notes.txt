@@ -110,3 +110,11 @@ Some distinctions:
 
 
 So, what we've doing so far is to add the routes inside the App component
+
+**Why Link component instead of a href element?**
+Short answer: to avoid refreshing pages
+Long answer: The intention of single page applications is to CALL a component ON THE SAME PAGE W I T H O U T refreshing the entire page.
+Think about navbars. When you click a button, if the page refreshes itself, it means that it was called with the a href tag.
+But sometimes we don't want the page to refresh at all. We just want it to render a component on the same page.
+
+If we use Link instead of a href, we will get rid of this issue.
