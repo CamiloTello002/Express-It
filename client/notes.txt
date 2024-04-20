@@ -54,3 +54,7 @@ p {
 h1 {
     font-size: 2em; / 2em = 32px */
 }
+
+H
+<time> element in HTML
+I didn't know about this one. We can provide it with an attribute that has a machine-readable date

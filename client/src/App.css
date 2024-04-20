@@ -50,3 +50,10 @@ div.post div.texts h2 {
   margin: 0;
   font-size: 1.5rem;
 }
+
+div.post p.info {
+  margin: 6px 0;
+  color: #888;
+  font-size: 1rem;
+  font-weight: bold;
+}
