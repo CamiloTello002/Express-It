@@ -105,3 +105,8 @@ Some distinctions:
 - History stack -> the history, basically.
 - Client-side Routing -> enables devs to MANIPULATE the browser history stack WITHOUT making a document request to the server.
 - History -> Object that allows React Router to subscribe to changes in the URL, and provides APIs to MANIPULATE the browser history stack programatically
+
+
+
+
+So, what we've doing so far is to add the routes inside the App component

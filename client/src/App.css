@@ -68,3 +68,8 @@ div.post p.summary {
   margin: 8px 0;
   line-height: 1.4rem;
 }
+
+div.post div.image {
+  display: flex;
+  justify-content: center;
+}
