@@ -7,7 +7,7 @@ WHY DO WE USE className instead of class?
 Because jsx is transpiled into JavaScript functions, and if you transpile it with 'class', you'll likely run into errors :(
 
 What is the fr unit in CSS?
-It stands for fraction (fraction of the available space). That helps us to specify sizes or lenghts relative to the AVAILABLE space in the grid container.
+It stands for fraction (fraction of the available space). That helps us to specify sizes or lenghts relative to the AVAILABLE space in the GRID CONTAINER.
 The pixels it actually occupies depend on two things: the 
 
 What is rem? 
@@ -118,3 +118,9 @@ Think about navbars. When you click a button, if the page refreshes itself, it m
 But sometimes we don't want the page to refresh at all. We just want it to render a component on the same page.
 
 If we use Link instead of a href, we will get rid of this issue.
+
+
+VAMOS POR EL MINUTO... 32:34
+
+
+Often times, a component needs to return multiple elements at once. In order to achieve this in jsx, we need to use the fragment <> </>

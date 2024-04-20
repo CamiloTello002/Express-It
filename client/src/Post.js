@@ -10,7 +10,7 @@ export default function Post() {
       <div className="texts">
         <h2>theprimeagen is a good programmer</h2>
         <p className="info">
-          <a href="#" className="author">
+          <a href="/" className="author">
             Camilo Rueda
           </a>
           <time>2024-04-20 16:45</time>
