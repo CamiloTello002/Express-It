@@ -126,3 +126,12 @@ VAMOS POR EL MINUTO... 32:34
 Often times, a component needs to return multiple elements at once. In order to achieve this in jsx, we need to use the fragment <> </>
 
 Remember that when an element is displayed as a block, it occupies an entire line, not sharing it with another existing element
+
+
+
+I just learned something:
+Two blocks can be set to 100% but one of them can appear wider than the other.
+Why could've that happened? Because of the padding. The width doesn't take into account the padding, causing an element to appear wider than the other, even if they are set to 100% of the width.
+*Is there a way to fix this?*
+Yes, just set the box-sizing to border-box.
+What does that do? The WIDTH will take into account not only the content but also the padding. We'll apply it for every element
