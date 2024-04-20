@@ -17,6 +17,7 @@ function App() {
           </main>
         }
       />
+      <Route path={'/login'} element={<div>login</div>} />
     </Routes>
   );
 }
