@@ -9,3 +9,48 @@ Because jsx is transpiled into JavaScript functions, and if you transpile it wit
 What is the fr unit in CSS?
 It stands for fraction (fraction of the available space). That helps us to specify sizes or lenghts relative to the AVAILABLE space in the grid container.
 The pixels it actually occupies depend on two things: the 
+
+What is rem? 
+It stands for 'roo-em' units, and it dictates an element's font size to the size of the root element.
+Keep in mind that is a RELATIVE sizing unit
+It just REPRESENTS the font size of the ROOT element.
+What does that mean?
+1rem is the same as the font size of the HTML element.
+This is usually 16px, which is the default value.
+Why would we use it?
+Because it ensures CONSISTENCY (in terms of font size and spacing).
+
+Difference between rem and em?
+em is RELATIVE to the own element.
+rem is RELATIVE to the ROOT element
+
+the advantage of rem is that we don't have to pay attention to nestings affecting the font size, whereas with rem we just take the root element as a reference
+
+The pitfall of rem is that the font size might get somewhat difficult to use. Take a look at this reference:
+
+10px = 0.625rem
+12px = 0.75rem
+14px = 0.875rem
+16px = 1rem (base)
+18px = 1.125rem
+20px = 1.25rem
+24px = 1.5rem
+30px = 1.875rem
+32px = 2rem
+
+Look at this example:
+p {
+    font-size: 16px; /* 1em = 16px */
+}
+
+This one is more insightful
+
+html {
+    font-size: 100%; /* 100% = 16px */
+}
+p {
+    font-size: 1em; /* 1em = 16px */
+}
+h1 {
+    font-size: 2em; / 2em = 32px */
+}

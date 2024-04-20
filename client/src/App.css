@@ -9,7 +9,8 @@ img {
 
 main {
   padding: 10px;
-  max-width: 500px;
+  /* max-width: 500px; */
+  max-width: 90%;
   margin: 0 auto;
 }
 
@@ -37,11 +38,10 @@ header nav {
 div.post {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 15px;
 }
 
-div.post div.image {
+div.post div.texts h2 {
+  margin: 0;
+  font-size: 1.5rem;
 }
-
-/* div.post img {
-  width: 50%;
-} */
