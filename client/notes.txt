@@ -171,3 +171,8 @@ according to docs, useState returns a stateful value and a function to update it
 Yes.
 First of all, let's keep in mind that HTML form elements keep an INTERNAL STATE.
 Usually, with forms we want a way to access their values and handle the submission of the form
+
+
+there are a handful of options we can set up for fetch()
+method -> It can be any HTTP method such as GET, POST and so on
+headers -> key-value pairs for the HTTP headers

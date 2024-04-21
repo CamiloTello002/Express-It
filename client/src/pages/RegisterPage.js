@@ -2,8 +2,15 @@ import { useState } from 'react';
 export default function RegisterPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  let baseAPIUrl = 'http://localhost:4000';
+  let urlToSubmit = new URL('/', baseAPIUrl);
   function register(ev) {
     ev.preventDefault();
+    fetch(urlToSubmit, {
+      method: 'POST',
+      body: JSON.stringify({ username, password }),
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
   return (
     <form onSubmit={register} className="register">
