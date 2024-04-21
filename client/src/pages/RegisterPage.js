@@ -2,9 +2,11 @@ import { useState } from 'react';
 export default function RegisterPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const baseURL = 'http://localhost:4000';
+  const URLToAPI = new URL('/', baseURL);
   async function register(ev) {
     ev.preventDefault();
-    await fetch('http://localhost:4000/', {
+    await fetch(URLToAPI, {
       method: 'POST',
       body: JSON.stringify({ username, password }),
       headers: { 'Content-Type': 'application/json' },
