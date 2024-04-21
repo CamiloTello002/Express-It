@@ -1,2 +1,4 @@
 **Yarn not installing node modules inside the current folder but outside?**
 Check if the outer folder has a package.json file. If it does, then you can remove it and try to install the packages inside the api folder
+
+I recapped something: when you call the model method, you must do it with the first letter in lowercase (model instead of Model)

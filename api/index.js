@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const User = require('./models/User');
 require('dotenv').config({ path: './.env' });
 
 const app = express();
@@ -20,8 +21,12 @@ mongoose
   .then(() => console.log('Connected to database!'))
   .catch(() => console.log('Failed to connect to database'));
 
-app.post('/register', (req, res) => {
+app.post('/register', async (req, res) => {
   const { username, password } = req.body;
+  const userDoc = await User.create({
+    username: req.body.username,
+    password: req.body.password,
+  });
   res.status(200).json({
     requestData: { username, password },
   });
