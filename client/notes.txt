@@ -135,3 +135,39 @@ Why could've that happened? Because of the padding. The width doesn't take into 
 *Is there a way to fix this?*
 Yes, just set the box-sizing to border-box.
 What does that do? The WIDTH will take into account not only the content but also the padding. We'll apply it for every element
+
+**CLASS-BASED AND FUNCTIONAL COMPONENTS?**
+There is a difference between them both: class-based ones are stateful, whereas functional ones are stateless.
+
+Functional components accept data (props) as a function argument and returns data in valid JSX form.
+
+These functional components really focus on the USER INTERFACE.
+
+**Some notes about the hooks**
+They can be only used in FUNCTION COMPONENTS
+React hooks CAN'T be called conditionally...
+They MUST be called in the exact same order in every component rendered
+
+Keep something in mind...
+The useState always returns an array with two elements: the value of the current state and the function that allows you to change the state
+
+
+This is something I learned...
+Components can be assigned variables. But these variables ALWAYS have an initial state and can be changed INSIDE the component.
+By using functions, we can change the value of the variables we create for the components (it could be a counter)
+
+Another thing is that we can pass a function to useState such that it runs EVERY SINGLE TIME THE COMPONENT GETS RENDERED
+
+
+confusing!!!
+
+
+vamos por el... 47:27
+
+according to docs, useState returns a stateful value and a function to update it.
+
+
+**CONTROLLED COMPONENTS?**
+Yes.
+First of all, let's keep in mind that HTML form elements keep an INTERNAL STATE.
+Usually, with forms we want a way to access their values and handle the submission of the form
