@@ -3,7 +3,8 @@ export default function RegisterPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const baseURL = 'http://localhost:4000';
-  const URLToAPI = new URL('/', baseURL);
+  const URLToAPI = new URL('/register', baseURL);
+
   async function register(ev) {
     ev.preventDefault();
     await fetch(URLToAPI, {
