@@ -23,3 +23,93 @@ this prevents us from three threats:
 - brute-force attacks (hackers try every combination)
 - dictionary attacks (try the most common combinations)
 - rainbow table attacks (pre-computed database of decrypted hash passwords)
+
+**Just a little theory**
+CRUD are the four basic operations of PERSISTENT STORAGE
+Concepts:
+-> The fundamental feature of of a storage location is that its CONTENT is both READABLE and UPDATABLE
+-> Before being read and updated, it must first be CREATED.
+-> At some later point, the storage location may need to be DESTRUCTED (deleted)
+
+Each operation can be mapped to a standard SQL statement:
+Create -> INSERT
+Read -> SELECT
+Update -> UPDATE 
+Delete -> DELETE
+
+Or an HTTP method:
+Create -> POST, PUT
+Read -> GET
+Update -> PUT (replace), PATCH (modify)
+Delete -> DELETE
+
+before making the distinction between a POST and PUT request, let's read about idempotent HTTP methods:
+An HTTP method is IDEMPOTENT if the intended effect on the server of making a SINGLE request is THE SAME as the effect of making MULTIPLE identical requests.
+But be careful, it can also have some SIDE EFFECTS, such as logging the request (made by the server)
+
+So, the PUT request IS idempotent, the POST request IS NOT
+
+POST /add_row HTTP/1.1
+POST /add_row HTTP/1.1   -> Adds a 2nd row
+POST /add_row HTTP/1.1   -> Adds a 3rd row
+
+In the case of DELETE method, even though the received status code is different, it's still idempotent
+DELETE /idX/delete HTTP/1.1   -> Returns 200 if idX exists
+DELETE /idX/delete HTTP/1.1   -> Returns 404 as it just got deleted
+DELETE /idX/delete HTTP/1.1   -> Returns 404
+
+
+**Mongoose queries**
+There are two ways to achieve this: by passing a callback function or using the promise
+
+What does the query look like? As a JSON document
+We can store the query in a variable and then chain methods to it so that we execute the query later
+
+**IMPORTANT THING TO KEEP IN MIND**
+If we DON'T AWAIT for the query, we're not really making the query to the database, it's just a query stored in the program.
+What does this enable us to do? We can keep on building up the query by chaining methods
+
+Why AREN'T queries promises?
+Because when you append a then() method, you're EXECUTING the query. It means that if you chain multiple then() methods, an error will be thrown.
+
+If we want to INCLUDE documents from other collections, we must have a look at **POPULATION**.
+
+**A LITTLE MORE THEORY**
+Streaming data is data that is emitted at HIGH VOLUME in a *continuous*, incremental manner with the GOAL of LOW-LATENCY processing
+
+**Characteristics of streaming data**
+-> *Chronologically significant*: All individual elements contain timestamps
+-> *Continuously flowing*: has no beginning or end. It collects data constantly as long as required (example: server activity logs)
+So what? Node.js provides a stream interface for dealing with this kind of data.
+Examples of this kind of data:
+· Request to an HTTP server
+· process.stdout
+All streams are instances of EventEmitter
+FOUR types of stream types:
+- Writable
+- Readable 
+- Duplex (both readable and writable such as net.Socket)
+- Transform (duplex streams that can modify the data as it's written and read)
+
+So what with Mongoose? 
+We can STREAM the results of a query from MongoDB. QueryCursor can help us.
+Example:
+---------------------------------
+--- This code will print documents one at a time
+const cursor = Person.find({occupation: /host/}).cursor();
+
+for (let doc = await cursor.next(); doc != null; doc = await cursor.next()){
+    console.log(doc);
+}
+
+--- Another way to do it is with *async iterators*:
+for await (const doc of Person.find())
+    console.log(doc);
+-----------------------------------
+What happens with cursors? They're subject to cursor timeouts (the cursor will be closed after 10 minutes)
+If we want to override this, use the noCursorTimeout flag
+
+Pro tip: use queries WHERE POSSIBLE. Only aggregate if REALLY needed
+
+A conclusion: queries allow us to UPDATE, DELETE and READ
+QUERIES ARE NOT FOR CREATING

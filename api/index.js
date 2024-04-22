@@ -39,6 +39,15 @@ app.post('/register', async (req, res) => {
   }
 });
 
+app.post('/login', async (req, res) => {
+  // 1) get username and password from body
+  const { username, password } = req.body;
+  try {
+    const userDoc = await User.findOne({ username });
+    res.status(200).json(userDoc);
+  } catch (error) {}
+});
+
 app.listen(port, () => {
   console.log(`App listening for requests on port ${port}`);
 });
