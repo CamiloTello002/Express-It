@@ -14,3 +14,12 @@ YARN stands for Yet Another Resource Navigator
 reference:https://www.techtarget.com/searchsecurity/definition/salt#:~:text=With%20password%20salting%2C%20a%20random,when%20the%20users%20enter%20them.
 Salting is a technique that consists of adding 32 or more characters to the password BEFORE hashing it
 This avoids hackers from reverse-engineering passwords
+Process:
+when a user logs in, the passwords runs through a one-way hashing algorithm. This string is compared to the other hashes ALREADY STORED in the website's database
+
+There's one problem: if two passwords are the same, then the hash resulting from them ends up being identical
+But the salting adds RANDOM characters to each passwords, making them UNIQUE
+this prevents us from three threats:
+- brute-force attacks (hackers try every combination)
+- dictionary attacks (try the most common combinations)
+- rainbow table attacks (pre-computed database of decrypted hash passwords)
