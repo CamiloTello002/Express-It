@@ -7,11 +7,12 @@ export default function RegisterPage() {
 
   async function register(ev) {
     ev.preventDefault();
-    await fetch(URLToAPI, {
+    const response = await fetch(URLToAPI, {
       method: 'POST',
       body: JSON.stringify({ username, password }),
       headers: { 'Content-Type': 'application/json' },
     });
+    alert(`Registration ${response.ok ? 'successful :)' : 'failed :('}`);
   }
   return (
     <form onSubmit={register} className="register">
