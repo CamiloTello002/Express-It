@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const User = require('./models/User');
+const bcrypt = require('bcryptjs');
 require('dotenv').config({ path: './.env' });
 
 const app = express();
@@ -23,13 +24,19 @@ mongoose
 
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
-  const userDoc = await User.create({
-    username: req.body.username,
-    password: req.body.password,
-  });
-  res.status(200).json({
-    requestData: { username, password },
-  });
+  try {
+    const saltGenerated = await bcrypt.genSalt(11);
+    const hashedPassword = await bcrypt.hash(req.body.password, saltGenerated);
+    await User.create({
+      username: req.body.username,
+      password: hashedPassword,
+    });
+    res.status(200).json({
+      requestData: { username, password },
+    });
+  } catch (error) {
+    res.status(400).json(error.errorResponse.errmsg);
+  }
 });
 
 app.listen(port, () => {

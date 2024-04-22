@@ -2,3 +2,15 @@
 Check if the outer folder has a package.json file. If it does, then you can remove it and try to install the packages inside the api folder
 
 I recapped something: when you call the model method, you must do it with the first letter in lowercase (model instead of Model)
+
+I did recap a lot of things :0
+
+vamos por: 1:05:42
+
+YARN stands for Yet Another Resource Navigator
+
+
+**PASWORD SALTING**
+reference:https://www.techtarget.com/searchsecurity/definition/salt#:~:text=With%20password%20salting%2C%20a%20random,when%20the%20users%20enter%20them.
+Salting is a technique that consists of adding 32 or more characters to the password BEFORE hashing it
+This avoids hackers from reverse-engineering passwords
