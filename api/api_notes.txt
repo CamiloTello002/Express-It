@@ -113,3 +113,44 @@ Pro tip: use queries WHERE POSSIBLE. Only aggregate if REALLY needed
 
 A conclusion: queries allow us to UPDATE, DELETE and READ
 QUERIES ARE NOT FOR CREATING
+
+
+**LITTLE RECAP ABOUT ERRORS**
+*Operational errors*: They happen when software is USED INCORRECTLY (or maybe in a way that wasn't intended)
+*Examples of operational errors*: dividing by zero, file not found, out-of-memory, user not found, invalid password
+In our API, we'll throw operational errors when the user used the API in a non intended way
+
+**About next() function**
+Whenever you have a middleware and you see it doesn't send any response that terminates the request/response cycle, you MUST call the next() function so that it can go on. Otherwise, the request will be left hanging
+The next() function IS NOT PART OF SOME API, it's just the THIRD ARGUMENT that is passed to the MIDDLEWARE function. That means it can be called anything but, for convention, it's named next().
+
+
+**ERROR HANDLING WITH EXPRESS MIDDLEWARE**
+Dude, this is the most important thing you've probably learned so far...
+LEARN THIS BY HEART: The error handling middleware ALWAYS USES FOUR ARGUMENTS (reference: https://expressjs.com/es/guide/using-middleware.html#middleware.error-handling)
+No matter the name you give to the arguments, IT MUST HAVE FOUR ARGUMENTS so that Express interprets the middleware as an error handler middleware
+Example:
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+Repeat after me:
+THE  ERROR  MIDDLEWARE  IS  ALWAYS  DEFINED  LAST.
+Example:
+const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
+app.use(bodyParser.json())
+app.use(methodOverride())
+app.use((err, req, res, next) => {
+  // logic
+})
+
+Of course, you can define multiple error handler middlewares 
+Another thing to keep in mind is that ANYTHING you pass to the next() function is interpreted as an error. If you look at the definition of next(), you'll get the following
+next(err?: any): void
+
+vamos por el... 1:14:17
