@@ -8,7 +8,12 @@ require('dotenv').config({ path: './.env' });
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: 'http://localhost:5000',
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 const DB = process.env.MONGODB_URI.replace(
@@ -69,7 +74,10 @@ app.post('/login', async (req, res, next) => {
         // console.log(err);
         // console.log(encoded);
         if (err) throw err;
-        res.status(200).json(encoded);
+        // res.status(200).json(encoded);
+        res.cookie('token', encoded).json({
+          status: 'success',
+        });
       }
     );
     // return res.status(200).json({});

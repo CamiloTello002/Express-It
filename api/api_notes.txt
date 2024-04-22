@@ -159,3 +159,25 @@ A little recap about jwt...
 JWT is a message format
 It's a compact and URL-safe way of passing a JSON message between two parties
 Each part of the token is base64 url-encoded
+The token can be a signed token or an encrypted token
+signed token has three parts: header, payload and signature
+encrypted token has 5 parts: header, encrypted key, IV, payload and authentication tag.
+
+
+**ABOUT SESSION COOKIES...**
+Session cookies are, intuitively, cookies that last for a session.
+Duration of a session? Starts when you LAUNCH a website or app, ends when you leave the website OR close your browser window
+Session cookies are NEVER stored in your device
+Other names...
+transient cookies, non-persistent cookies, temporary cookies
+*Why session cookies?*
+You need to take something into account
+-> A website itself CANNOT track a user's movement on its webpage. It means that every page request is treated as a NEW REQUEST from a NEW USER.
+Well, session cookies ALLOW WEBSITES TO REMEMBER USERS
+These cookies tell the server what pages to show the user
+This is why session cookies are VITAL FOR USER EXPERIENCE such as online shops and websites 
+
+**JUST LEARNED FROM A MISTAKE**
+When you specify the origin for cors, ONLY UNTIL THE PORT, don't add the extra slash
+
+**Another interesting thing to learn**
