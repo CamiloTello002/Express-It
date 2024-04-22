@@ -154,3 +154,8 @@ Another thing to keep in mind is that ANYTHING you pass to the next() function i
 next(err?: any): void
 
 vamos por el... 1:14:17
+
+A little recap about jwt...
+JWT is a message format
+It's a compact and URL-safe way of passing a JSON message between two parties
+Each part of the token is base64 url-encoded

@@ -61,8 +61,18 @@ app.post('/login', async (req, res, next) => {
         message: 'username or password incorrect!',
       });
     }
-    jwt.sign();
-    return res.status(200).json({});
+    jwt.sign(
+      { username, id: userDoc._id },
+      process.env.JWT_SECRET,
+      {},
+      (err, encoded) => {
+        // console.log(err);
+        // console.log(encoded);
+        if (err) throw err;
+        res.status(200).json(encoded);
+      }
+    );
+    // return res.status(200).json({});
   } catch (error) {}
   // try {
   //   // 2) make the request to the database (really, we're using the await keyword)
