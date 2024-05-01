@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const User = require('./models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { promisify } = require('util');
 require('dotenv').config({ path: './.env' });
 
 const app = express();
@@ -66,14 +67,30 @@ app.post('/login', async (req, res, next) => {
         message: 'username or password incorrect!',
       });
     }
+    // promisify the sign function
+    const payload = { username, id: userDoc._id };
+    const token = await promisify(jwt.sign)(
+      payload,
+      process.env.JWT_SECRET,
+      {}
+    );
+    // const signToken = promisify(jwt.sign);
+    // const token = await signToken(payload, process.env.JWT_SECRET, {});
+    console.log(`The token when promisifying is ${token}\n`);
+    return res.cookie('token', token).json({
+      status: 'success',
+    });
+
+    console.log(`The token when promisifying is ${token}\n`);
+
     jwt.sign(
       { username, id: userDoc._id },
       process.env.JWT_SECRET,
       {},
       (err, encoded) => {
         // console.log(err);
-        // console.log(encoded);
         if (err) throw err;
+        console.log(encoded);
         // res.status(200).json(encoded);
         res.cookie('token', encoded).json({
           status: 'success',

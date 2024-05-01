@@ -183,3 +183,8 @@ mode -> it could be cors, no-cors or same-origin
 **Something completely new**
 By default, an Express application won't enable cross-origin resource sharing (other domains won't be able to make requests to the api). That's why when we make a request from our React application, we get a TypeError: Failed to fetch.
 Now, when we see in the network tab, we can spot a CORS error status. That's why.
+
+
+** I just learned something new **
+When the API returns a JSON, if you want to get the actual JSON in the client side, just do response.json().
+I was trying to access the message that the API was sending and all I had to do was to parse it to JSON
