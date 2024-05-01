@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const User = require('./models/User');
 const bcrypt = require('bcryptjs');
@@ -16,6 +17,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(cookieParser());
 
 const DB = process.env.MONGODB_URI.replace(
   '<password>',
@@ -79,55 +81,15 @@ app.post('/login', async (req, res, next) => {
     console.log(`The token when promisifying is ${token}\n`);
     return res.cookie('token', token).json({
       status: 'success',
+      message: 'the credentials are correct!',
     });
 
-    console.log(`The token when promisifying is ${token}\n`);
-
-    jwt.sign(
-      { username, id: userDoc._id },
-      process.env.JWT_SECRET,
-      {},
-      (err, encoded) => {
-        // console.log(err);
-        if (err) throw err;
-        console.log(encoded);
-        // res.status(200).json(encoded);
-        res.cookie('token', encoded).json({
-          status: 'success',
-        });
-      }
-    );
     // return res.status(200).json({});
   } catch (error) {}
-  // try {
-  //   // 2) make the request to the database (really, we're using the await keyword)
-  //   const userDoc = await User.findOne({ username });
-  //   if (!userDoc) {
-  //     return res.status(400).json({
-  //       status: 'failed',
-  //       message: 'username or password incorrect',
-  //     });
-  //   }
-  //   console.log(userDoc);
-  //   // 3) check if the password matches
-  //   const passwordIsCorrect = await bcrypt.compare(password, userDoc.password);
-  //   // res.status(200).json({ passwordIsCorrect });
-  //   if (passwordIsCorrect) {
-  //     res.status(200).json({
-  //       status: 'success',
-  //       message: 'Successfully logged in :)',
-  //       user: userDoc,
-  //     });
-  //   } else {
-  //     res.status(400).json({
-  //       status: 'failed',
-  //       message: 'Not logged in..',
-  //     });
-  //   }
-  // } catch (error) {
-  //   console.log(error);
-  //   res.status(400).send('some error happened');
-  // }
+});
+
+app.get('/profile', (req, res) => {
+  res.json(req.cookies);
 });
 
 app.listen(port, () => {

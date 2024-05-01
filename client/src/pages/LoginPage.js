@@ -15,6 +15,7 @@ export default function LoginPage() {
       body: JSON.stringify({ username, password }),
       headers: { 'Content-Type': 'application/json' },
     });
+    // console.log(response.json());
     if (response.ok) {
       // yes, we're using the function that changes the redirect state
       setRedirect(true);

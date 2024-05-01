@@ -188,3 +188,37 @@ Now, when we see in the network tab, we can spot a CORS error status. That's why
 ** I just learned something new **
 When the API returns a JSON, if you want to get the actual JSON in the client side, just do response.json().
 I was trying to access the message that the API was sending and all I had to do was to parse it to JSON
+
+
+With respect to Typescript, you can just do tsc and the Typescript compiler will compile ALL .ts files
+
+
+Okay, so something useful to do is to check the definition of a function and see the parameters it takes. It saves us from checking documentation on the internet. If we don't understand something, we can check online examples and try to match it with the definition
+
+
+**TYPESCRIPT**
+Regarding to union types, if we have a value that is a union type, we can access its members that are COMMON to ALL TYPES in the union.
+
+For example: 
+interface Bird {
+  fly(): void;
+  layEggs(): void;
+}
+ 
+interface Fish {
+  swim(): void;
+  layEggs(): void;
+}
+
+If we create a variable of type Bird | Fish, then we can access the layEggs() method BUT not the swim() method just because it's not defined in the Bird interface
+
+
+
+Regarding to INTERSECTION types, they combine multiple types into one. The upside of the intersection is that it has ALL the features of the existing types
+
+
+** TYPES OR INTERFACES??? **
+Interface describes the SHAPE of an OBJECT
+types describe literally the type of data. We can use unions or intersections
+Insightful example: https://www.typescripttutorial.net/typescript-tutorial/typescript-intersection-types/
+I experimented and the intersection variable MUST have all the types of the interfaces
