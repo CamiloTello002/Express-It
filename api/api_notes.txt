@@ -180,4 +180,7 @@ This is why session cookies are VITAL FOR USER EXPERIENCE such as online shops a
 **JUST LEARNED FROM A MISTAKE**
 When you specify the origin for cors, ONLY UNTIL THE PORT, don't add the extra slash
 
-**Another interesting thing to learn**
+declare function forEach<T>(arr: T[], callback: (el: T) => undefined): void;
+
+The keyword declare tells Typescript that the function EXISTS, and it's implementation is done elsewhere.
+arr: T[] is an array of elements of type T. T is a generic type parameter. It means that the type of the array elements can be ANY type. This allows the forEach function to work with arrays of different types, such as numbers, strings or custom objects

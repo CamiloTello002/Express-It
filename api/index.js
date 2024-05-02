@@ -79,7 +79,7 @@ app.post('/login', async (req, res, next) => {
     // const signToken = promisify(jwt.sign);
     // const token = await signToken(payload, process.env.JWT_SECRET, {});
     console.log(`The token when promisifying is ${token}\n`);
-    return res.cookie('token', token).json({
+    res.cookie('token', token).json({
       status: 'success',
       message: 'the credentials are correct!',
     });
@@ -89,7 +89,8 @@ app.post('/login', async (req, res, next) => {
 });
 
 app.get('/profile', (req, res) => {
-  res.json(req.cookies);
+  console.log(`profile endpoint already hit`);
+  res.json({ cookie: req.cookies });
 });
 
 app.listen(port, () => {
