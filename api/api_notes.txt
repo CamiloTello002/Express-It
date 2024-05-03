@@ -154,3 +154,11 @@ Another thing to keep in mind is that ANYTHING you pass to the next() function i
 next(err?: any): void
 
 vamos por el... 1:14:17
+
+
+Okay, so let's have a look at the create method in Mongoose...
+create is defined like this:
+create<DocContents = AnyKeys<TRawDocType>>(doc: DocContents | TRawDocType): Promise<THydratedDocumentType>;
+The type for doc is DocContents, and its default type is AnyKeys. AnyKeys is defined like this:
+  export type AnyKeys<T> = { [P in keyof T]?: T[P] | any };
+From here, we already know that it accepts an OBJECT

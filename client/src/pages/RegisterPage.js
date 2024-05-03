@@ -3,8 +3,10 @@ export default function RegisterPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const baseURL = 'http://localhost:4000';
-  const URLToAPI = new URL('/register', baseURL);
+  const path = '/register';
+  const URLToAPI = new URL(path, baseURL);
 
+  // function to trigger when the form is submitted
   async function register(ev) {
     ev.preventDefault();
     const response = await fetch(URLToAPI, {
@@ -14,6 +16,7 @@ export default function RegisterPage() {
     });
     alert(`Registration ${response.ok ? 'successful :)' : 'failed :('}`);
   }
+
   return (
     <form onSubmit={register} className="register">
       <h1>Register</h1>
@@ -21,6 +24,7 @@ export default function RegisterPage() {
         type="text"
         placeholder="username"
         value={username}
+        // When there's a change in the field
         onChange={(ev) => setUsername(ev.target.value)}
       />
       <input

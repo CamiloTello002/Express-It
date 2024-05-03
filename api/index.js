@@ -24,14 +24,21 @@ mongoose
   .catch(() => console.log('Failed to connect to database'));
 
 app.post('/register', async (req, res) => {
+  // gets username and password
   const { username, password } = req.body;
+  console.log(username, password);
   try {
+    // Generate a salt
     const saltGenerated = await bcrypt.genSalt(11);
+    // add the salt and hash the password
     const hashedPassword = await bcrypt.hash(req.body.password, saltGenerated);
-    await User.create({
+    // make a request to the database for saving the new user
+    // document is hydrated with id and __v
+    const savedDocument = await User.create({
       username: req.body.username,
       password: hashedPassword,
     });
+    console.log(savedDocument);
     res.status(200).json({
       requestData: { username, password },
     });
@@ -61,8 +68,16 @@ app.post('/login', async (req, res, next) => {
         message: 'username or password incorrect!',
       });
     }
-    jwt.sign();
-    return res.status(200).json({});
+    jwt.sign(
+      { username, id: userDoc._id },
+      process.env.JWT_SECRET,
+      {},
+      (err, token) => {
+        if (err) throw err;
+        res.json(token);
+      }
+    );
+    // return res.status(200).json({});
   } catch (error) {}
   // try {
   //   // 2) make the request to the database (really, we're using the await keyword)
