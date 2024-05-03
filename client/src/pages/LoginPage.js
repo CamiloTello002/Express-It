@@ -3,7 +3,12 @@ export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const baseURL = 'http://localhost:4000';
-  const URLToAPI = new URL('/login', baseURL);
+  // const pathURL = '/login';
+  // I hope this to work
+  const pathURLcb = {
+    toString: () => '/login',
+  };
+  const URLToAPI = new URL(pathURLcb, baseURL);
 
   async function login(ev) {
     ev.preventDefault();

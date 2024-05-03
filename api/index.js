@@ -74,7 +74,7 @@ app.post('/login', async (req, res, next) => {
       {},
       (err, token) => {
         if (err) throw err;
-        res.json(token);
+        res.cookie('jwt', token).json('ok');
       }
     );
     // return res.status(200).json({});
