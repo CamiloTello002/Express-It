@@ -162,3 +162,24 @@ create<DocContents = AnyKeys<TRawDocType>>(doc: DocContents | TRawDocType): Prom
 The type for doc is DocContents, and its default type is AnyKeys. AnyKeys is defined like this:
   export type AnyKeys<T> = { [P in keyof T]?: T[P] | any };
 From here, we already know that it accepts an OBJECT
+
+
+** I LEARNED SOMETHING FUNDAMENTAL **
+I had this problem with the cookies, and it had to do with both fetch and cors options.
+
+In the fetch function, I had to specify an option called credentials, which must be true.
+When you specify it to be true, the client WILL STORE the credentials sent by the server.
+
+In the cors middleware, I had to put credentials true so that whenever a client makes a request, the server sends the credentials in case it does
+
+
+All the cors library does is to SET HEADERS
+
+
+with respect to the origin argument, it can be of type...
+type CustomOrigin = (
+    requestOrigin: string | undefined,
+    callback: (err: Error | null, origin?: StaticOrigin) => void,
+) => void;
+
+CustomOrigin is a FUNCTION type that accepts two parameters: requestOrigin and callback

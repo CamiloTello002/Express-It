@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [redirect, setRedirect] = useState(false);
+
   const baseURL = 'http://localhost:4000';
-  // const pathURL = '/login';
-  // I hope this to work
   const pathURLcb = {
     toString: () => '/login',
   };
@@ -18,7 +19,17 @@ export default function LoginPage() {
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
     });
-    alert(`Login ${response.ok ? 'successful :)' : 'failed :('}`);
+    // alert(`Login ${response.ok ? 'successful :)' : 'failed :('}`);
+    if (response.ok) {
+      setRedirect(true);
+    } else {
+      alert('wrong credentials!');
+    }
+
+    if (redirect) {
+      return <Navigate to={'/'} />;
+    }
+    // In case the response was successful, then we're redirected to the main page
   }
   //   return <div>Login Page</div>;
   return (
