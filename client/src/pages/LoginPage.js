@@ -26,10 +26,10 @@ export default function LoginPage() {
       alert('wrong credentials!');
     }
 
-    if (redirect) {
-      return <Navigate to={'/'} />;
-    }
     // In case the response was successful, then we're redirected to the main page
+  }
+  if (redirect) {
+    return <Navigate to={'/'} />;
   }
   //   return <div>Login Page</div>;
   return (
