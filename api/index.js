@@ -8,7 +8,11 @@ require('dotenv').config({ path: './.env' });
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: 'http://localhost:5000',
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 const DB = process.env.MONGODB_URI.replace(
