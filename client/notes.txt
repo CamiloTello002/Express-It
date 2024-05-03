@@ -183,3 +183,72 @@ mode -> it could be cors, no-cors or same-origin
 **Something completely new**
 By default, an Express application won't enable cross-origin resource sharing (other domains won't be able to make requests to the api). That's why when we make a request from our React application, we get a TypeError: Failed to fetch.
 Now, when we see in the network tab, we can spot a CORS error status. That's why.
+
+
+** I just learned something new **
+When the API returns a JSON, if you want to get the actual JSON in the client side, just do response.json().
+I was trying to access the message that the API was sending and all I had to do was to parse it to JSON
+
+
+With respect to Typescript, you can just do tsc and the Typescript compiler will compile ALL .ts files
+
+
+Okay, so something useful to do is to check the definition of a function and see the parameters it takes. It saves us from checking documentation on the internet. If we don't understand something, we can check online examples and try to match it with the definition
+
+
+**TYPESCRIPT**
+Regarding to union types, if we have a value that is a union type, we can access its members that are COMMON to ALL TYPES in the union.
+
+For example: 
+interface Bird {
+  fly(): void;
+  layEggs(): void;
+}
+ 
+interface Fish {
+  swim(): void;
+  layEggs(): void;
+}
+
+If we create a variable of type Bird | Fish, then we can access the layEggs() method BUT not the swim() method just because it's not defined in the Bird interface
+
+
+
+Regarding to INTERSECTION types, they combine multiple types into one. The upside of the intersection is that it has ALL the features of the existing types
+
+
+** TYPES OR INTERFACES??? **
+Interface describes the SHAPE of an OBJECT
+types describe literally the type of data. We can use unions or intersections
+Insightful example: https://www.typescripttutorial.net/typescript-tutorial/typescript-intersection-types/
+I experimented and the intersection variable MUST have all the types of the interfaces
+
+** Just did an exercise (missing integer problem) **
+1. Remove duplicates
+const set = new Set(A);
+
+2. the MINIMUM value possible is 1
+let missing = 1;
+
+3. If the set has the number, then check for the next one. If not, break the loop and return the value of missing
+while(true){
+  if (set.has(missing)){
+    missing++;
+  } else {
+    break;
+  }
+}
+
+return missing;
+
+
+Note that we DON'T have to check for negative values
+
+something that confuses me...
+the callback in useEffect must return either void or a Destructor... What?
+
+I got an example: let's say we perform an action that fetches some data from a server, but then we do another thing that involves unmounting a component. When the fetch is done, it'll throw an error because the component no longer exists (this is a memory leak in the application)
+
+https://www.dhiwise.com/post/understanding-the-importance-of-the-useeffect-dependency-array-in-react
+Based on that link, we get that when we specify some values in the dependency array, React will re-run the effect
+If some of these values haven't changed, then react won't run the effect

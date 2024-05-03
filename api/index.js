@@ -1,15 +1,23 @@
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const User = require('./models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { promisify } = require('util');
 require('dotenv').config({ path: './.env' });
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: 'http://localhost:5000',
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
+app.use(cookieParser());
 
 const DB = process.env.MONGODB_URI.replace(
   '<password>',
@@ -68,6 +76,7 @@ app.post('/login', async (req, res, next) => {
         message: 'username or password incorrect!',
       });
     }
+
     jwt.sign(
       { username, id: userDoc._id },
       process.env.JWT_SECRET,
@@ -77,37 +86,14 @@ app.post('/login', async (req, res, next) => {
         res.json(token);
       }
     );
+
     // return res.status(200).json({});
   } catch (error) {}
-  // try {
-  //   // 2) make the request to the database (really, we're using the await keyword)
-  //   const userDoc = await User.findOne({ username });
-  //   if (!userDoc) {
-  //     return res.status(400).json({
-  //       status: 'failed',
-  //       message: 'username or password incorrect',
-  //     });
-  //   }
-  //   console.log(userDoc);
-  //   // 3) check if the password matches
-  //   const passwordIsCorrect = await bcrypt.compare(password, userDoc.password);
-  //   // res.status(200).json({ passwordIsCorrect });
-  //   if (passwordIsCorrect) {
-  //     res.status(200).json({
-  //       status: 'success',
-  //       message: 'Successfully logged in :)',
-  //       user: userDoc,
-  //     });
-  //   } else {
-  //     res.status(400).json({
-  //       status: 'failed',
-  //       message: 'Not logged in..',
-  //     });
-  //   }
-  // } catch (error) {
-  //   console.log(error);
-  //   res.status(400).send('some error happened');
-  // }
+});
+
+app.get('/profile', (req, res) => {
+  console.log(`profile endpoint already hit`);
+  res.json({ cookie: req.cookies });
 });
 
 app.listen(port, () => {

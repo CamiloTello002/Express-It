@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  // initial state of redirect is false
+  const [redirect, setRedirect] = useState(false);
   const baseURL = 'http://localhost:4000';
   const URLToAPI = new URL('/login', baseURL);
 
@@ -12,9 +15,19 @@ export default function LoginPage() {
       body: JSON.stringify({ username, password }),
       headers: { 'Content-Type': 'application/json' },
     });
-    alert(`Login ${response.ok ? 'successful :)' : 'failed :('}`);
+    // console.log(response.json());
+    if (response.ok) {
+      // yes, we're using the function that changes the redirect state
+      setRedirect(true);
+    } else {
+      alert('Wrong credentials!');
+    }
+    // alert(`Login ${response.ok ? 'successful :)' : 'failed :('}`);
   }
-  //   return <div>Login Page</div>;
+
+  if (redirect) {
+    return <Navigate to={'/'} />;
+  }
   return (
     <form onSubmit={login} className="login">
       <h1>Login</h1>
