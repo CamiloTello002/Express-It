@@ -1,7 +1,11 @@
-import { useEffect, useState } from 'react';
+import { UserContext } from 'UserContext';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 export default function Header() {
-  const [username, setUsername] = useState(null);
+  // we'll no longer use it since the context provides this information
+  // const [username, setUsername] = useState(null);
+  // taking information about the user with useContext
+  const { setUserInfo, userInfo } = useContext(UserContext);
   useEffect(() => {
     // our fetch function will take the response with then()
     fetch('http://localhost:4000/profile', {
@@ -10,7 +14,9 @@ export default function Header() {
       // response parsed to json
       response.json().then((userInfo) => {
         // Set the username
-        setUsername(userInfo.username);
+        // this setUsername won't come from useState but from useContext
+        // setUsername(userInfo.username);
+        setUserInfo(userInfo);
       });
     });
   });
@@ -21,8 +27,10 @@ export default function Header() {
       credentials: 'include',
       method: 'POST',
     });
-    setUsername(null);
+    setUserInfo(null);
   }
+
+  const username = userInfo?.username;
 
   return (
     <header>
