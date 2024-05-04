@@ -188,3 +188,18 @@ Now, when we see in the network tab, we can spot a CORS error status. That's why
 ** I just learned something new **
 When the API returns a JSON, if you want to get the actual JSON in the client side, just do response.json().
 I was trying to access the message that the API was sending and all I had to do was to parse it to JSON
+
+
+** React context **
+Context provides a way to pass data through the component tree WITHOUT HAVING to pass props down MANUALLY at EVERY level
+Unlike redux, context is like a PIPE or a WORMHOLE
+Purpose??? AVOID PROP DRILLING
+Conceptually, this is a form of DEPENDENCY INJECTION
+*Let's briefly look at the definition of dependency injection*
+Dependency injection is a PROGRAMMING TECHNIQUE in which an OBJECT or FUNCTION receives OTHER OBJECTS or functions that it requires. These are NOT CREATED INTERNALLY
+
+In the case of React, the child component assumes that SOME parent component will pass down the value AT RUNTIME
+
+
+> Por ahora, vamos en "What is redux?"
+sitio: https://blog.isquaredsoftware.com/2021/01/context-redux-differences/
