@@ -14,6 +14,16 @@ export default function Header() {
       });
     });
   });
+
+  // What the logout function will do is to invalidate the cookie.
+  function logout() {
+    fetch('http://localhost:4000/logout', {
+      credentials: 'include',
+      method: 'POST',
+    });
+    setUsername(null);
+  }
+
   return (
     <header>
       <Link to="/" className="logo">
@@ -23,10 +33,17 @@ export default function Header() {
         {username && (
           <>
             <Link to="/create">Create new post</Link>
+            <a href="/" onClick={logout}>
+              Logout
+            </a>
           </>
         )}
-        <Link to="/login">Login</Link>
-        <Link to="/register">Register</Link>
+        {!username && (
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
+          </>
+        )}
       </nav>
     </header>
   );
