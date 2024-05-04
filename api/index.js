@@ -88,7 +88,7 @@ app.post('/login', async (req, res, next) => {
   } catch (error) {}
 });
 
-app.get('profile', (req, res) => {
+app.get('/profile', (req, res) => {
   res.json(req.cookies);
 });
 
