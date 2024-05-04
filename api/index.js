@@ -98,6 +98,11 @@ app.get('/profile', (req, res) => {
   // return res.json(req.cookies);
 });
 
+app.post('/logout', (req, res) => {
+  // The server responds with an empty cookie
+  res.cookie('token', '').json('ok');
+});
+
 app.listen(port, () => {
   console.log(`App listening for requests on port ${port}`);
 });
