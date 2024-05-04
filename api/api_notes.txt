@@ -155,7 +155,6 @@ next(err?: any): void
 
 vamos por el... 1:14:17
 
-<<<<<<< HEAD
 A little recap about jwt...
 JWT is a message format
 It's a compact and URL-safe way of passing a JSON message between two parties
@@ -182,7 +181,6 @@ This is why session cookies are VITAL FOR USER EXPERIENCE such as online shops a
 When you specify the origin for cors, ONLY UNTIL THE PORT, don't add the extra slash
 
 **Another interesting thing to learn**
-=======
 
 Okay, so let's have a look at the create method in Mongoose...
 create is defined like this:
@@ -211,4 +209,3 @@ type CustomOrigin = (
 ) => void;
 
 CustomOrigin is a FUNCTION type that accepts two parameters: requestOrigin and callback
->>>>>>> trying_again

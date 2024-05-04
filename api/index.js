@@ -81,7 +81,7 @@ app.post('/login', async (req, res, next) => {
       {},
       (err, token) => {
         if (err) throw err;
-        res.cookie('jwt', token).json('ok');
+        res.cookie('token', token).json('ok');
       }
     );
     // return res.status(200).json({});
@@ -89,7 +89,13 @@ app.post('/login', async (req, res, next) => {
 });
 
 app.get('/profile', (req, res) => {
-  res.json(req.cookies);
+  const { token } = req.cookies;
+  // console.log(token);
+  jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+    if (err) throw err;
+    return res.json(decodedToken);
+  });
+  // return res.json(req.cookies);
 });
 
 app.listen(port, () => {
