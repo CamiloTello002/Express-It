@@ -3,10 +3,18 @@ import { Navigate } from 'react-router-dom';
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+<<<<<<< HEAD
   // initial state of redirect is false
   const [redirect, setRedirect] = useState(false);
+=======
+  const [redirect, setRedirect] = useState(false);
+
+>>>>>>> trying_again
   const baseURL = 'http://localhost:4000';
-  const URLToAPI = new URL('/login', baseURL);
+  const pathURLcb = {
+    toString: () => '/login',
+  };
+  const URLToAPI = new URL(pathURLcb, baseURL);
 
   async function login(ev) {
     ev.preventDefault();
@@ -14,7 +22,9 @@ export default function LoginPage() {
       method: 'POST',
       body: JSON.stringify({ username, password }),
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
     });
+<<<<<<< HEAD
     if (response.ok) {
       // yes, we're using the function that changes the redirect state
       setRedirect(true);
@@ -24,6 +34,17 @@ export default function LoginPage() {
     // alert(`Login ${response.ok ? 'successful :)' : 'failed :('}`);
   }
 
+=======
+    // alert(`Login ${response.ok ? 'successful :)' : 'failed :('}`);
+    if (response.ok) {
+      setRedirect(true);
+    } else {
+      alert('wrong credentials!');
+    }
+
+    // In case the response was successful, then we're redirected to the main page
+  }
+>>>>>>> trying_again
   if (redirect) {
     return <Navigate to={'/'} />;
   }

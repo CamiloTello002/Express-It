@@ -11,6 +11,7 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: [true, 'You need to provide a password!'],
+    min: 5,
   },
 });
 

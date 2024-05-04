@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const User = require('./models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { promisify } = require('util');
+const cookieParser = require('cookie-parser');
 require('dotenv').config({ path: './.env' });
 
 const app = express();
@@ -16,6 +16,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(cookieParser());
 
 const DB = process.env.MONGODB_URI.replace(
   '<password>',
@@ -30,14 +31,21 @@ mongoose
   .catch(() => console.log('Failed to connect to database'));
 
 app.post('/register', async (req, res) => {
+  // gets username and password
   const { username, password } = req.body;
+  console.log(username, password);
   try {
+    // Generate a salt
     const saltGenerated = await bcrypt.genSalt(11);
+    // add the salt and hash the password
     const hashedPassword = await bcrypt.hash(req.body.password, saltGenerated);
-    await User.create({
+    // make a request to the database for saving the new user
+    // document is hydrated with id and __v
+    const savedDocument = await User.create({
       username: req.body.username,
       password: hashedPassword,
     });
+    console.log(savedDocument);
     res.status(200).json({
       requestData: { username, password },
     });
@@ -67,67 +75,21 @@ app.post('/login', async (req, res, next) => {
         message: 'username or password incorrect!',
       });
     }
-    // promisify the sign function
-    const payload = { username, id: userDoc._id };
-    const token = await promisify(jwt.sign)(
-      payload,
-      process.env.JWT_SECRET,
-      {}
-    );
-    // const signToken = promisify(jwt.sign);
-    // const token = await signToken(payload, process.env.JWT_SECRET, {});
-    console.log(`The token when promisifying is ${token}\n`);
-    return res.cookie('token', token).json({
-      status: 'success',
-    });
-
-    console.log(`The token when promisifying is ${token}\n`);
-
     jwt.sign(
       { username, id: userDoc._id },
       process.env.JWT_SECRET,
       {},
-      (err, encoded) => {
-        // console.log(err);
+      (err, token) => {
         if (err) throw err;
-        console.log(encoded);
-        // res.status(200).json(encoded);
-        res.cookie('token', encoded).json({
-          status: 'success',
-        });
+        res.cookie('jwt', token).json('ok');
       }
     );
     // return res.status(200).json({});
   } catch (error) {}
-  // try {
-  //   // 2) make the request to the database (really, we're using the await keyword)
-  //   const userDoc = await User.findOne({ username });
-  //   if (!userDoc) {
-  //     return res.status(400).json({
-  //       status: 'failed',
-  //       message: 'username or password incorrect',
-  //     });
-  //   }
-  //   console.log(userDoc);
-  //   // 3) check if the password matches
-  //   const passwordIsCorrect = await bcrypt.compare(password, userDoc.password);
-  //   // res.status(200).json({ passwordIsCorrect });
-  //   if (passwordIsCorrect) {
-  //     res.status(200).json({
-  //       status: 'success',
-  //       message: 'Successfully logged in :)',
-  //       user: userDoc,
-  //     });
-  //   } else {
-  //     res.status(400).json({
-  //       status: 'failed',
-  //       message: 'Not logged in..',
-  //     });
-  //   }
-  // } catch (error) {
-  //   console.log(error);
-  //   res.status(400).send('some error happened');
-  // }
+});
+
+app.get('/profile', (req, res) => {
+  res.json(req.cookies);
 });
 
 app.listen(port, () => {
