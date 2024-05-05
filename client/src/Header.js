@@ -1,5 +1,5 @@
 import { UserContext } from 'UserContext';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 export default function Header() {
   // we'll no longer use it since the context provides this information

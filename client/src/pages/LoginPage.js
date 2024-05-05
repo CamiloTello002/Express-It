@@ -6,6 +6,7 @@ export default function LoginPage() {
   const [redirect, setRedirect] = useState(false);
 
   const baseURL = 'http://localhost:4000';
+  // path url is set with a callback
   const pathURLcb = {
     toString: () => '/login',
   };

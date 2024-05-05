@@ -81,7 +81,11 @@ app.post('/login', async (req, res, next) => {
       {},
       (err, token) => {
         if (err) throw err;
-        res.cookie('token', token).json('ok');
+        // when you log in, the server will return both id and username
+        res.cookie('token', token).json({
+          id: userDoc._id,
+          username,
+        });
       }
     );
     // return res.status(200).json({});
