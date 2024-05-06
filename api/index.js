@@ -95,10 +95,21 @@ app.post('/login', async (req, res, next) => {
 app.get('/profile', (req, res) => {
   const { token } = req.cookies;
   // console.log(token);
-  jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
-    if (err) throw err;
-    return res.json(decodedToken);
-  });
+  // console.log(`the cookies are ${req.cookies}`);
+  // if there's not token, return something else, don't perform the verification
+  if (!token) {
+    console.log(!token);
+    console.log('there is not a token');
+    return res.status(200).json({
+      status: 'success',
+    });
+  } else {
+    console.log('there IS a token');
+    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+      if (err) throw err;
+      return res.json(decodedToken);
+    });
+  }
   // return res.json(req.cookies);
 });
 
