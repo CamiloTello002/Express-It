@@ -18,8 +18,10 @@ export default function Header() {
         });
         // json-ize the response
         const json = await response.json();
-        // extract the username from the response and set it to the userInfo state
-        setUserInfo(json.username);
+        console.log('the response from /profile is');
+        console.log(json);
+        // Don't just set the username; set the ENTIRE object
+        setUserInfo(json);
       } catch (err) {}
     };
     // run the function that makes the request to the API and
@@ -41,7 +43,9 @@ export default function Header() {
     setUserInfo(null);
   }
 
-  const username = userInfo;
+  // since userInfo might be empty (because of server response),
+  // we safely access the username
+  const username = userInfo?.username;
   console.log('the username is...');
   console.log(username);
 
