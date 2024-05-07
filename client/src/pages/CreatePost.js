@@ -1,5 +1,16 @@
+import ReactQuill from 'react-quill';
+import { useState } from 'react';
+import 'react-quill/dist/quill.snow.css';
 // with doing export default function, we can smell a component about to be created
 export default function CreatePost() {
-  // return a simple div for the sake of completeness
-  return <div>Here you'll create your new post</div>;
+  const [value, setValue] = useState('');
+  return (
+    <form>
+      <input type="title" placeholder={'Title'} />
+      <input type="summary" placeholder={'Summary'} />
+      <input type="file" />
+      {/* <textarea name="" id=""></textarea> */}
+      <ReactQuill />
+    </form>
+  );
 }
