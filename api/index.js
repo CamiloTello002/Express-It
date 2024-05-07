@@ -101,7 +101,7 @@ app.get('/profile', (req, res) => {
     console.log(!token);
     console.log('there is not a token');
     return res.status(200).json({
-      status: 'success',
+      // status: 'success',
     });
   } else {
     console.log('there IS a token');
