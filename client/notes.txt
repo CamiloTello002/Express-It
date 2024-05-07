@@ -214,3 +214,6 @@ So, in order to provide context for children components, you:
 const username = userInfo?.username;
 This safely access the element of an object. If it doesn't exist, then it WON'T THROW AN ERROR and will just set it 
 to undefined
+
+
+timestamp -> 1:41:16
