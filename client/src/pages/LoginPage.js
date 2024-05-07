@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { UserContext } from 'UserContext';
+import { useContext, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [redirect, setRedirect] = useState(false);
+  const { setUserInfo } = useContext(UserContext);
 
   const baseURL = 'http://localhost:4000';
   // path url is set with a callback
@@ -22,6 +24,10 @@ export default function LoginPage() {
     });
     // alert(`Login ${response.ok ? 'successful :)' : 'failed :('}`);
     if (response.ok) {
+      // json-ize the response first
+      const resJson = await response.json();
+      // here we update user information before rendering the header
+      setUserInfo(resJson);
       setRedirect(true);
     } else {
       alert('wrong credentials!');
