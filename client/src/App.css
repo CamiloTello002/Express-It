@@ -104,6 +104,15 @@ button {
   padding: 7px 0px;
 }
 
-form h1 {
+/* For ALL forms, the h1 element will be centered, and we don't want that */
+
+/* OLD WAY */
+/* form h1 {
+  text-align: center;
+} */
+
+/* NEW WAY */
+form.login h1,
+form.register h1 {
   text-align: center;
 }
