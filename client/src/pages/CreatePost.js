@@ -11,6 +11,7 @@ export default function CreatePost() {
       <input type="file" />
       {/* <textarea name="" id=""></textarea> */}
       <ReactQuill />
+      <button style={{ marginTop: '7px' }}>Create post</button>
     </form>
   );
 }
