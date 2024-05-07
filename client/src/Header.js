@@ -4,12 +4,24 @@ import { Link } from 'react-router-dom';
 export default function Header() {
   const { setUserInfo, userInfo } = useContext(UserContext);
   useEffect(() => {
-    fetch('http://localhost:4000/profile', {
-      credentials: 'include',
-    }).then((response) => {
-      console.log(response);
-    });
-  });
+    const controller = new AbortController();
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/profile', {
+          credentials: 'include',
+          signal: controller.signal,
+        });
+        const json = await response.json();
+        console.log(json);
+      } catch (err) {}
+    };
+    fetchData();
+
+    // return the cleanup function
+    return () => {
+      controller.abort();
+    };
+  }, []); // empty dependency array means effect runs only once
 
   // What the logout function will do is to invalidate the cookie.
   function logout() {
