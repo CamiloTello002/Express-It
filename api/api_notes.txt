@@ -209,3 +209,7 @@ type CustomOrigin = (
 ) => void;
 
 CustomOrigin is a FUNCTION type that accepts two parameters: requestOrigin and callback
+
+
+jwt must be provided...
+1. 

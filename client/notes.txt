@@ -203,3 +203,14 @@ In the case of React, the child component assumes that SOME parent component wil
 
 > Por ahora, vamos en "What is redux?"
 sitio: https://blog.isquaredsoftware.com/2021/01/context-redux-differences/
+
+
+So, in order to provide context for children components, you:
+1. Create a context
+2. define the variables you'll pass that children components will alter (in our case, it's a state)
+3. wrap the children inside the createContext().Provider and add the intended value props
+
+
+const username = userInfo?.username;
+This safely access the element of an object. If it doesn't exist, then it WON'T THROW AN ERROR and will just set it 
+to undefined
