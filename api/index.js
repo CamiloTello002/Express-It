@@ -1,4 +1,5 @@
 const express = require('express');
+const multer = require('multer');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const User = require('./models/User');
@@ -8,6 +9,7 @@ const cookieParser = require('cookie-parser');
 require('dotenv').config({ path: './.env' });
 
 const app = express();
+const upload = multer({ dest: `${__dirname}/uploads` });
 
 const corsOptions = {
   origin: 'http://localhost:5000',
@@ -16,6 +18,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(express.urlencoded());
 app.use(cookieParser());
 
 const DB = process.env.MONGODB_URI.replace(
@@ -116,6 +119,17 @@ app.get('/profile', (req, res) => {
 app.post('/logout', (req, res) => {
   // The server responds with an empty cookie
   res.cookie('token', '').json('ok');
+});
+
+app.post('/create-post', upload.single('file'), (req, res) => {
+  console.log('the body is...');
+  console.log(req.file);
+  console.log(req.body);
+  res.status(200).json({
+    status: 'success',
+    message: 'body received successfully',
+    body: req.body,
+  });
 });
 
 app.listen(port, () => {
