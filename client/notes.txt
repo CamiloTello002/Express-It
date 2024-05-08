@@ -216,4 +216,19 @@ This safely access the element of an object. If it doesn't exist, then it WON'T 
 to undefined
 
 
-timestamp -> 1:41:16
+timestamp -> 1:56:04
+
+
+Some recap about the FormData object...
+
+Remember that Blob stands for Binary Large Object
+Used to represent binary data in the form of files or data objects.
+This can encapsulate large amounts of arbitrary binary data such as images, videos, audio files, or other multimedia content in a single object
+
+
+When to use it???? What problem can it solve for me???
+-> File uploads: this comes in handy when you want to send files via AJAX request
+The blob can be created from a <input type="file"> element's file object
+
+
+Okay, when you have a form and you want to submit it, you MUST set the button to submit type

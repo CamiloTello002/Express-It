@@ -38,12 +38,28 @@ export default function CreatePost() {
   const [title, setTitle] = useState('');
   const [summary, setSummary] = useState('');
   const [content, setContent] = useState('');
+  const [file, setFile] = useState(null);
 
-  function createNewPost(ev) {
+  const onChangeFile = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  async function createNewPost(ev) {
     ev.preventDefault();
-    fetch('http://localhost:4000/post', {
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('summary', summary);
+    formData.append('content', content);
+    formData.append('file', file);
+    formData.forEach((el) => console.log(el));
+    console.log('about to send data...');
+
+    const response = await fetch('http://localhost:4000/create-post', {
       method: 'POST',
+      body: formData,
     });
+    const responseJson = await response.json();
+    console.log(responseJson);
   }
 
   // finally return the rendered component
@@ -61,7 +77,8 @@ export default function CreatePost() {
         value={summary}
         onChange={(ev) => setSummary(ev.target.value)}
       />
-      <input type="file" />
+      {/* This is the input file where we'll get the blob. */}
+      <input type="file" onChange={onChangeFile} />
       {/* <textarea name="" id=""></textarea> */}
       <ReactQuill
         value={content}
@@ -69,7 +86,9 @@ export default function CreatePost() {
         formats={formats}
         onChange={(newValue) => setContent(newValue)}
       />
-      <button style={{ marginTop: '7px' }}>Create post</button>
+      <button style={{ marginTop: '7px' }} type="submit">
+        Create post
+      </button>
     </form>
   );
 }
