@@ -8,8 +8,17 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 require('dotenv').config({ path: './.env' });
 
+const storage = multer.diskStorage({
+  destination: `${__dirname}/uploads`,
+  filename: function (req, file, cb) {
+    console.log('la variable file se ve asi:');
+    console.log(file);
+    cb(null, `una_imagen_subida_el_${Date.now()}.jpeg`);
+  },
+});
+
 const app = express();
-const upload = multer({ dest: `${__dirname}/uploads` });
+const upload = multer({ storage: storage });
 
 const corsOptions = {
   origin: 'http://localhost:5000',
@@ -122,9 +131,9 @@ app.post('/logout', (req, res) => {
 });
 
 app.post('/create-post', upload.single('file'), (req, res) => {
-  console.log('the body is...');
-  console.log(req.file);
-  console.log(req.body);
+  // console.log('the body is...');
+  // console.log(req.file);
+  // console.log(req.body);
   res.status(200).json({
     status: 'success',
     message: 'body received successfully',

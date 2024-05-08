@@ -41,7 +41,7 @@ export default function CreatePost() {
   const [file, setFile] = useState(null);
 
   const onChangeFile = (e) => {
-    setFile(e.target.files[0]);
+    setFile(e.target.files);
   };
 
   async function createNewPost(ev) {
@@ -50,7 +50,7 @@ export default function CreatePost() {
     formData.append('title', title);
     formData.append('summary', summary);
     formData.append('content', content);
-    formData.append('file', file);
+    formData.append('file', file[0]);
     formData.forEach((el) => console.log(el));
     console.log('about to send data...');
 
