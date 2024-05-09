@@ -210,3 +210,26 @@ type CustomOrigin = (
 
 CustomOrigin is a FUNCTION type that accepts two parameters: requestOrigin and callback
 
+
+** Delving into mongoose schemas **
+When you define a schema, you're doing two things:
+> mapping it to a MongoDB collection 
+> defining the SHAPE of the documents within the collection
+
+Of course you can add more keys with Schema.add()
+
+According to docs, schemas not only define the structure, but also... 
+DOCUMENT INSTANCE METHODS -> you can define functions for a Schema (DON'T define it with arrow functions because they're not bound to this, and you'll lose access to the current document :c)
+
+** Validation **
+> defined in the SchemaType (which handles the definition of a path)
+What is a SchemaType? It's a CONFIGURATION OBJECT of an INDIVIDUAL PROPERTY
+It tells you WHAT TYPE A GIVEN PATH SHOULD HAVE
+
+mongoose.ObjectId (in schema) -> tells Mongoose the type of data to EXPECT in a field
+mongoose.Types.ObjectId (in code) -> Does the REAL WORK of creating and handling MongoDB ObjectIds in JS.
+
+
+** Maps vs Objects in JavaScript **
+Both are similar in the sense that both let you set keys ...
+Don't lose focus lol
