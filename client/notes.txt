@@ -239,3 +239,6 @@ controlled -> state and behaviour controlled by parent component
 uncontroller -> state and behaviour controlled on its own. Not controlled by react state
 
 Example: adding a file as an input can't be controlled because it depends on user input (browser).
+
+
+timestamp -> 2:09:00
