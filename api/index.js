@@ -3,6 +3,7 @@ const multer = require('multer');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const User = require('./models/User');
+const Post = require('./models/Post');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
@@ -13,7 +14,7 @@ const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     console.log('la variable file se ve asi:');
     console.log(file);
-    cb(null, `una_imagen_subida_el_${Date.now()}.jpeg`);
+    cb(null, file.originalname);
   },
 });
 
@@ -130,14 +131,29 @@ app.post('/logout', (req, res) => {
   res.cookie('token', '').json('ok');
 });
 
-app.post('/create-post', upload.single('file'), (req, res) => {
-  // console.log('the body is...');
-  // console.log(req.file);
-  // console.log(req.body);
+app.post('/create-post', upload.single('file'), async (req, res) => {
+  console.log('the body is...');
+  console.log(req.body);
+  console.log('and the file is...');
+  console.log(req.file);
+  const { title, summary, content } = req.body;
+  const { originalname } = req.file;
+  const postDoc = await Post.create({
+    title,
+    summary,
+    content,
+    cover: originalname,
+  });
   res.status(200).json({
     status: 'success',
     message: 'body received successfully',
-    body: req.body,
+    body: {
+      title,
+      summary,
+      content,
+      cover: originalname,
+    },
+    document: postDoc,
   });
 });
 
