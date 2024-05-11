@@ -1,15 +1,17 @@
 import { useState } from 'react';
+import { API_DOMAIN, API_PORT } from 'config';
 export default function RegisterPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const baseURL = 'http://localhost:4000';
+  const baseURL = `${API_DOMAIN}:${API_PORT}`;
+  // const baseURL = 'http://localhost:4000';
   const path = '/register';
   const URLToAPI = new URL(path, baseURL);
 
   // function to trigger when the form is submitted
   async function register(ev) {
     ev.preventDefault();
-    const response = await fetch(URLToAPI, {
+    const response = await fetch(`${API_DOMAIN}:${API_PORT}/register`, {
       method: 'POST',
       body: JSON.stringify({ username, password }),
       headers: { 'Content-Type': 'application/json' },

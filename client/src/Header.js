@@ -1,7 +1,13 @@
 import { UserContext } from 'UserContext';
+import { API_DOMAIN, API_PORT } from 'config';
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 export default function Header() {
+  const baseURL = `${API_DOMAIN}:${API_PORT}`;
+  const path = '/profile';
+  const pathLogout = '/logout';
+  const URLToAPI = new URL(path, baseURL);
+  const URLToAPILogout = new URL(pathLogout, baseURL);
   // user information provided by a parent component
   const { setUserInfo, userInfo } = useContext(UserContext);
   // set a side effect when rendering the component
@@ -12,7 +18,7 @@ export default function Header() {
     const fetchData = async () => {
       try {
         // make the request to the API and save the response
-        const response = await fetch('http://localhost:4000/profile', {
+        const response = await fetch(URLToAPI, {
           credentials: 'include',
           signal: controller.signal,
         });
@@ -36,7 +42,7 @@ export default function Header() {
 
   // What the logout function will do is to invalidate the cookie.
   function logout() {
-    fetch('http://localhost:4000/logout', {
+    fetch(URLToAPILogout, {
       credentials: 'include',
       method: 'POST',
     });
@@ -52,7 +58,7 @@ export default function Header() {
   return (
     <header>
       <Link to="/" className="logo">
-        My Blog
+        Pocho Blogs
       </Link>
       <nav>
         {username && (

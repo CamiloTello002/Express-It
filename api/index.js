@@ -157,6 +157,13 @@ app.post('/create-post', upload.single('file'), async (req, res) => {
   });
 });
 
+app.get('/post', (req, res) => {
+  res.json({
+    status: 'success',
+    message: 'this endpoint works :)',
+  });
+});
+
 app.listen(port, () => {
   console.log(`App listening for requests on port ${port}`);
 });

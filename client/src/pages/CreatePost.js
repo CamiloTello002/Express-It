@@ -1,6 +1,8 @@
 import ReactQuill from 'react-quill';
+import { API_DOMAIN, API_PORT } from 'config';
 import { useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
+import { Navigate } from 'react-router-dom';
 
 // include modules (for customization)
 const modules = {
@@ -39,11 +41,15 @@ export default function CreatePost() {
   const [summary, setSummary] = useState('');
   const [content, setContent] = useState('');
   const [file, setFile] = useState(null);
+  const [redirect, setRedirect] = useState(false);
 
   const onChangeFile = (e) => {
     setFile(e.target.files);
   };
 
+  const baseURL = `${API_DOMAIN}:${API_PORT}`;
+  const path = '/create-post';
+  const URLToAPI = new URL(path, baseURL);
   async function createNewPost(ev) {
     ev.preventDefault();
     const formData = new FormData();
@@ -54,12 +60,20 @@ export default function CreatePost() {
     formData.forEach((el) => console.log(el));
     console.log('about to send data...');
 
-    const response = await fetch('http://localhost:4000/create-post', {
+    const response = await fetch(URLToAPI, {
       method: 'POST',
       body: formData,
     });
     const responseJson = await response.json();
+    console.log(response);
     console.log(responseJson);
+    if (response.ok) {
+      setRedirect(true);
+    }
+  }
+
+  if (redirect) {
+    return <Navigate to={'/'} />;
   }
 
   // finally return the rendered component

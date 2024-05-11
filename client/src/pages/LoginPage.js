@@ -1,13 +1,15 @@
 import { UserContext } from 'UserContext';
 import { useContext, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { API_DOMAIN, API_PORT } from 'config';
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [redirect, setRedirect] = useState(false);
   const { setUserInfo } = useContext(UserContext);
 
-  const baseURL = 'http://localhost:4000';
+  // const baseURL = 'http://localhost:4000';
+  const baseURL = `${API_DOMAIN}:${API_PORT}`;
   // path url is set with a callback
   const pathURLcb = {
     toString: () => '/login',
