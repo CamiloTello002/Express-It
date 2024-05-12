@@ -157,10 +157,12 @@ app.post('/create-post', upload.single('file'), async (req, res) => {
   });
 });
 
-app.get('/post', (req, res) => {
+app.get('/posts', async (req, res) => {
+  const posts = await Post.find();
   res.json({
     status: 'success',
     message: 'this endpoint works :)',
+    posts,
   });
 });
 
