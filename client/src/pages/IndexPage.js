@@ -22,8 +22,9 @@ export default function IndexPage() {
           method: 'GET',
         });
         const postsJSON = await posts.json();
-        console.log(postsJSON);
-        setBlogPosts(postsJSON);
+        console.log('the posts are...');
+        console.log(postsJSON.posts);
+        setBlogPosts(postsJSON.posts);
       } catch (error) {}
     };
     fetchData();
@@ -33,10 +34,6 @@ export default function IndexPage() {
     };
   }, []);
   return (
-    <>
-      {blogPosts.length > 0 && blogPosts.map((post) => <Post {...post} />)}
-      <Post />
-      <Post />
-    </>
+    <>{blogPosts.length > 0 && blogPosts.map((post) => <Post {...post} />)}</>
   );
 }

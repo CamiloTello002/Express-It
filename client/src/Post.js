@@ -1,6 +1,4 @@
 export default function Post({ title, summary, content, cover }) {
-  console.log('the title is');
-  console.log(title);
   return (
     <div className="post">
       <div className="image">
@@ -18,11 +16,7 @@ export default function Post({ title, summary, content, cover }) {
           </a>
           <time>2024-04-20 16:45</time>
         </p>
-        <p className="summary">
-          Theprimeagen is a programmer from the USA, he is about 37 years old
-          and he has a good understanding of Neovim and plugins. He's also a fan
-          of Rust and Lua languages
-        </p>
+        <p className="summary">{summary}</p>
       </div>
     </div>
   );
