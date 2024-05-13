@@ -1,4 +1,6 @@
-export default function Post({ title, summary, content, cover }) {
+import { formatISO9075 } from 'date-fns';
+
+export default function Post({ title, summary, createdAt, cover }) {
   return (
     <div className="post">
       <div className="image">
@@ -14,7 +16,8 @@ export default function Post({ title, summary, content, cover }) {
           <a href="/" className="author">
             Camilo Rueda
           </a>
-          <time>2024-04-20 16:45</time>
+          {/* <time>2024-04-20 16:45</time> */}
+          <time>{formatISO9075(new Date(createdAt))}</time>
         </p>
         <p className="summary">{summary}</p>
       </div>
