@@ -1,4 +1,6 @@
-export default function Post() {
+export default function Post({ title, summary, content, cover }) {
+  console.log('the title is');
+  console.log(title);
   return (
     <div className="post">
       <div className="image">
@@ -8,7 +10,8 @@ export default function Post() {
         />
       </div>
       <div className="texts">
-        <h2>theprimeagen is a good programmer</h2>
+        {/* <h2>theprimeagen is a good programmer</h2> */}
+        <h2>{title}</h2>
         <p className="info">
           <a href="/" className="author">
             Camilo Rueda
