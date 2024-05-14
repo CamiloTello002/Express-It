@@ -117,8 +117,6 @@ app.post('/create-post', upload.single('file'), async (req, res) => {
   let author;
   jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
     if (err) throw err;
-    // TODO: get the username from here
-    // console.log(decodedToken.username);
     author = decodedToken.id;
   });
   const postParams = {
@@ -145,7 +143,8 @@ app.post('/create-post', upload.single('file'), async (req, res) => {
 });
 
 app.get('/posts', async (req, res) => {
-  const posts = await Post.find();
+  // TODO: find a way to add the user as a string
+  const posts = await Post.find().populate('author').exec();
   res.json({
     status: 'success',
     message: 'Posts already returned',
