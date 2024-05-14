@@ -60,7 +60,7 @@ export default function CreatePost() {
     formData.forEach((el) => console.log(el));
     console.log('about to send data...');
 
-    const response = await fetch(URLToAPI, {
+    const response = await fetch(`${baseURL}${path}`, {
       method: 'POST',
       body: formData,
     });

@@ -16,7 +16,8 @@ export default function IndexPage() {
 
     const fetchData = async () => {
       try {
-        const posts = await fetch(URLToPosts, {
+        // const posts = await fetch(URLToPosts, {
+        const posts = await fetch(`${baseURL}${postsPath}`, {
           credentials: 'include',
           signal: controller.signal,
           method: 'GET',

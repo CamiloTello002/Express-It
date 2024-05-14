@@ -6,8 +6,8 @@ export default function Header() {
   const baseURL = `${API_DOMAIN}:${API_PORT}`;
   const path = '/profile';
   const pathLogout = '/logout';
-  const URLToAPI = new URL(path, baseURL);
-  const URLToAPILogout = new URL(pathLogout, baseURL);
+  // const URLToAPI = new URL(path, baseURL);
+  // const URLToAPILogout = new URL(pathLogout, baseURL);
   const { setUserInfo, userInfo } = useContext(UserContext);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function Header() {
     const fetchData = async () => {
       try {
         // User data is in the SERVER
-        const response = await fetch(URLToAPI, {
+        const response = await fetch(`${baseURL}${path}`, {
           credentials: 'include',
           signal: controller.signal,
         });
@@ -37,7 +37,7 @@ export default function Header() {
   }, []);
 
   function logout() {
-    fetch(URLToAPILogout, {
+    fetch(`${baseURL}${pathLogout}`, {
       credentials: 'include',
       method: 'POST',
     });

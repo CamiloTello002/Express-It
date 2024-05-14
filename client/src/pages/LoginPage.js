@@ -11,14 +11,13 @@ export default function LoginPage() {
   // const baseURL = 'http://localhost:4000';
   const baseURL = `${API_DOMAIN}:${API_PORT}`;
   // path url is set with a callback
-  const pathURLcb = {
-    toString: () => '/login',
-  };
+  const pathURLcb = '/login';
   const URLToAPI = new URL(pathURLcb, baseURL);
 
   async function login(ev) {
     ev.preventDefault();
-    const response = await fetch(URLToAPI, {
+    // const response = await fetch(URLToAPI, {
+    const response = await fetch(`${baseURL}${pathURLcb}`, {
       method: 'POST',
       body: JSON.stringify({ username, password }),
       headers: { 'Content-Type': 'application/json' },
