@@ -8,7 +8,8 @@ export default function Post({ title, summary, createdAt, cover, author }) {
     <div className="post">
       <div className="image">
         <img
-          src="https://pbs.twimg.com/profile_images/1759330620160049152/2i_wkOoK_400x400.jpg"
+          // src="http://localhost:4000/default.png"
+          src={`http://localhost:4000/${cover}`}
           // src=""
           alt=""
         />
