@@ -28,6 +28,8 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(cookieParser());
+// We need to make the uploads folder available to the frontend for profile photos
+app.use(express.static('uploads'));
 
 const DB = process.env.MONGODB_URI.replace(
   '<password>',
