@@ -144,7 +144,9 @@ app.post('/create-post', upload.single('file'), async (req, res) => {
 
 app.get('/posts', async (req, res) => {
   // TODO: find a way to add the user as a string
-  const posts = await Post.find().populate('author', 'username');
+  const posts = await Post.find()
+    .populate('author', 'username')
+    .sort({ createdAt: -1 });
   res.json({
     status: 'success',
     message: 'Posts already returned',
