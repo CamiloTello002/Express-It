@@ -12,8 +12,6 @@ require('dotenv').config({ path: './.env' });
 const storage = multer.diskStorage({
   destination: `${__dirname}/uploads`,
   filename: function (req, file, cb) {
-    console.log('la variable file se ve asi:');
-    console.log(file);
     cb(null, file.originalname);
   },
 });
@@ -44,16 +42,10 @@ mongoose
   .catch(() => console.log('Failed to connect to database'));
 
 app.post('/register', async (req, res) => {
-  // gets username and password
   const { username, password } = req.body;
-  console.log(username, password);
   try {
-    // Generate a salt
     const saltGenerated = await bcrypt.genSalt(11);
-    // add the salt and hash the password
     const hashedPassword = await bcrypt.hash(req.body.password, saltGenerated);
-    // make a request to the database for saving the new user
-    // document is hydrated with id and __v
     const savedDocument = await User.create({
       username: req.body.username,
       password: hashedPassword,
@@ -68,9 +60,7 @@ app.post('/register', async (req, res) => {
 });
 
 app.post('/login', async (req, res, next) => {
-  // 1) get username and password from body
   const { username, password } = req.body;
-  // if there's not username nor password, throw an error
   if (!username || !password) {
     return res.status(404).json({
       status: 'failed',
@@ -78,10 +68,8 @@ app.post('/login', async (req, res, next) => {
     });
   }
   try {
-    // get the document (please, AWAIT it)
     const userDoc = await User.findOne({ username }).select('+password');
 
-    // in case there's no user or password is incorrect, return 400 status code
     if (!userDoc || !(await bcrypt.compare(password, userDoc.password))) {
       return res.status(400).json({
         status: 'failed',
@@ -94,66 +82,65 @@ app.post('/login', async (req, res, next) => {
       {},
       (err, token) => {
         if (err) throw err;
-        // when you log in, the server will return both id and username
         res.cookie('token', token).json({
           id: userDoc._id,
           username,
         });
       }
     );
-    // return res.status(200).json({});
   } catch (error) {}
 });
 
 app.get('/profile', (req, res) => {
   const { token } = req.cookies;
-  // console.log(token);
-  // console.log(`the cookies are ${req.cookies}`);
-  // if there's not token, return something else, don't perform the verification
   if (!token) {
-    console.log(!token);
-    console.log('there is not a token');
-    return res.status(200).json({
-      // status: 'success',
-    });
+    // there's no token, so we can't decode the token
+    return res.status(200).json({});
   } else {
-    console.log('there IS a token');
     jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
       if (err) throw err;
+      console.log('decodedToken is:');
+      console.log(decodedToken);
       return res.json(decodedToken);
     });
   }
-  // return res.json(req.cookies);
 });
 
 app.post('/logout', (req, res) => {
-  // The server responds with an empty cookie
+  // An empty cookie will act as if there wasn't a cookie
   res.cookie('token', '').json('ok');
 });
 
 app.post('/create-post', upload.single('file'), async (req, res) => {
-  console.log('the body is...');
-  console.log(req.body);
-  console.log('and the file is...');
-  console.log(req.file);
   const { title, summary, content } = req.body;
-  const { originalname } = req.file;
-  const postDoc = await Post.create({
+  const { token } = req.cookies;
+  let author;
+  jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+    if (err) throw err;
+    // TODO: get the username from here
+    // console.log(decodedToken.username);
+    author = decodedToken.id;
+  });
+  const postParams = {
     title,
     summary,
     content,
-    cover: originalname,
-  });
+    author,
+  };
+  // User may not upload a photo
+  if (req.file !== undefined) {
+    const { originalname } = req.file;
+    postParams.cover = originalname;
+  } else {
+    postParams.cover = 'default.png';
+  }
+  const postDoc = await Post.create(postParams);
   res.status(200).json({
     status: 'success',
-    message: 'body received successfully',
+    message: 'Post created',
     body: {
-      title,
-      summary,
-      content,
-      cover: originalname,
+      postDoc,
     },
-    document: postDoc,
   });
 });
 
@@ -161,7 +148,7 @@ app.get('/posts', async (req, res) => {
   const posts = await Post.find();
   res.json({
     status: 'success',
-    message: 'this endpoint works :)',
+    message: 'Posts already returned',
     posts,
   });
 });

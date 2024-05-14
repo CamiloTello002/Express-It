@@ -1,11 +1,12 @@
 import { formatISO9075 } from 'date-fns';
 
-export default function Post({ title, summary, createdAt, cover }) {
+export default function Post({ title, summary, createdAt, cover, author }) {
   return (
     <div className="post">
       <div className="image">
         <img
-          src="https://pbs.twimg.com/profile_images/1759330620160049152/2i_wkOoK_400x400.jpg"
+          // src="https://pbs.twimg.com/profile_images/1759330620160049152/2i_wkOoK_400x400.jpg"
+          src=""
           alt=""
         />
       </div>

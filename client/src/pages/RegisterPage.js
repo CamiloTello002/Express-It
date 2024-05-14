@@ -16,7 +16,11 @@ export default function RegisterPage() {
       body: JSON.stringify({ username, password }),
       headers: { 'Content-Type': 'application/json' },
     });
-    alert(`Registration ${response.ok ? 'successful :)' : 'failed :('}`);
+    alert(
+      `Registration ${
+        response.ok ? 'successful :). You can now log in' : 'failed :('
+      }`
+    );
   }
 
   return (

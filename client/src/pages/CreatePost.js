@@ -49,20 +49,21 @@ export default function CreatePost() {
 
   const baseURL = `${API_DOMAIN}:${API_PORT}`;
   const path = '/create-post';
-  const URLToAPI = new URL(path, baseURL);
   async function createNewPost(ev) {
     ev.preventDefault();
     const formData = new FormData();
     formData.append('title', title);
     formData.append('summary', summary);
     formData.append('content', content);
-    formData.append('file', file[0]);
+    file !== null && formData.append('file', file[0]);
     formData.forEach((el) => console.log(el));
     console.log('about to send data...');
 
     const response = await fetch(`${baseURL}${path}`, {
       method: 'POST',
       body: formData,
+      // We need to send the cookie because the user information is there
+      credentials: 'include',
     });
     const responseJson = await response.json();
     console.log(response);

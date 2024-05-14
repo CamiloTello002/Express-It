@@ -6,7 +6,6 @@ import { API_PORT } from 'config';
 export default function IndexPage() {
   const baseURL = `${API_DOMAIN}:${API_PORT}`;
   const postsPath = '/posts';
-  const URLToPosts = new URL(postsPath, baseURL);
 
   const [blogPosts, setBlogPosts] = useState([]);
 
