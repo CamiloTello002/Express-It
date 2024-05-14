@@ -1,12 +1,15 @@
 import { formatISO9075 } from 'date-fns';
 
 export default function Post({ title, summary, createdAt, cover, author }) {
+  // console.log(typeof author);
+  // console.log(typeof author.username);
+
   return (
     <div className="post">
       <div className="image">
         <img
-          // src="https://pbs.twimg.com/profile_images/1759330620160049152/2i_wkOoK_400x400.jpg"
-          src=""
+          src="https://pbs.twimg.com/profile_images/1759330620160049152/2i_wkOoK_400x400.jpg"
+          // src=""
           alt=""
         />
       </div>
@@ -15,7 +18,7 @@ export default function Post({ title, summary, createdAt, cover, author }) {
         <h2>{title}</h2>
         <p className="info">
           <a href="/" className="author">
-            Camilo Rueda
+            {author.username}
           </a>
           {/* <time>2024-04-20 16:45</time> */}
           <time>{formatISO9075(new Date(createdAt))}</time>
