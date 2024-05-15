@@ -145,7 +145,6 @@ app.post('/create-post', upload.single('file'), async (req, res) => {
 });
 
 app.get('/posts', async (req, res) => {
-  // TODO: find a way to add the user as a string
   const posts = await Post.find()
     .populate('author', 'username')
     .sort({ createdAt: -1 });
@@ -153,6 +152,16 @@ app.get('/posts', async (req, res) => {
     status: 'success',
     message: 'Posts already returned',
     posts,
+  });
+});
+
+app.get('/post/:id', async (req, res) => {
+  const { id } = req.params; // extract id from parameter
+  const post = await Post.findById(id); // query the post to the database
+  res.status(200).json({
+    status: 'success',
+    message: 'Entire post page returned',
+    post,
   });
 });
 
