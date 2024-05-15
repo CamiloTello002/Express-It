@@ -43,10 +43,17 @@ header nav {
 
 div.post {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* grid-template-columns: 1fr 1fr; */
+  grid-template-columns: 1fr;
   gap: 15px;
   /* We need to leave some space between each post car */
   margin-bottom: 30px;
+}
+
+@media screen and (min-width: 768px) {
+  div.post {
+    grid-template-columns: 0.9fr 1.1fr;
+  }
 }
 
 div.post div.texts h2 {
