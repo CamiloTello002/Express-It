@@ -56,8 +56,6 @@ export default function CreatePost() {
     formData.append('summary', summary);
     formData.append('content', content);
     file !== null && formData.append('file', file[0]);
-    formData.forEach((el) => console.log(el));
-    console.log('about to send data...');
 
     const response = await fetch(`${baseURL}${path}`, {
       method: 'POST',
@@ -66,8 +64,6 @@ export default function CreatePost() {
       credentials: 'include',
     });
     const responseJson = await response.json();
-    console.log(response);
-    console.log(responseJson);
     if (response.ok) {
       setRedirect(true);
     }

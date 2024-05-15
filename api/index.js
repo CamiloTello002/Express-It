@@ -52,7 +52,6 @@ app.post('/register', async (req, res) => {
       username: req.body.username,
       password: hashedPassword,
     });
-    console.log(savedDocument);
     res.status(200).json({
       requestData: { username, password },
     });
@@ -101,8 +100,6 @@ app.get('/profile', (req, res) => {
   } else {
     jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
       if (err) throw err;
-      console.log('decodedToken is:');
-      console.log(decodedToken);
       return res.json(decodedToken);
     });
   }
@@ -157,7 +154,7 @@ app.get('/posts', async (req, res) => {
 
 app.get('/post/:id', async (req, res) => {
   const { id } = req.params; // extract id from parameter
-  const post = await Post.findById(id); // query the post to the database
+  const post = await Post.findById(id).populate('author', 'username'); // query the post to the database
   res.status(200).json({
     status: 'success',
     message: 'Entire post page returned',

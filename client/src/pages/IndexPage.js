@@ -22,8 +22,6 @@ export default function IndexPage() {
           method: 'GET',
         });
         const postsJSON = await posts.json();
-        console.log('the posts are...');
-        console.log(postsJSON.posts);
         setBlogPosts(postsJSON.posts);
       } catch (error) {}
     };

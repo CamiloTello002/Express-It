@@ -22,8 +22,6 @@ export default function Header() {
         });
         // Useful for setting user information
         const json = await response.json();
-        console.log('the response from /profile is');
-        console.log(json);
         setUserInfo(json);
       } catch (err) {}
     };
@@ -46,8 +44,6 @@ export default function Header() {
 
   // userInfo might be returned as empty object
   const username = userInfo?.username;
-  console.log('the username is...');
-  console.log(username);
 
   return (
     <header>

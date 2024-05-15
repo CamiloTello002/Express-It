@@ -121,3 +121,7 @@ div.post div.texts a {
   text-decoration: none;
   color: inherit;
 }
+
+div.post-page div.author {
+  margin-bottom: 11px;
+}
