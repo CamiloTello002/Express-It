@@ -145,6 +145,7 @@ app.get('/posts', async (req, res) => {
   const posts = await Post.find()
     .populate('author', 'username')
     .sort({ createdAt: -1 });
+  // .limit(5);
   res.json({
     status: 'success',
     message: 'Posts already returned',
@@ -153,13 +154,20 @@ app.get('/posts', async (req, res) => {
 });
 
 app.get('/post/:id', async (req, res) => {
+  const { token } = req.cookies;
   const { id } = req.params; // extract id from parameter
+  const response = {};
+  if (token) {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+      if (err) throw err;
+      response.author = decodedToken.id;
+    });
+  }
   const post = await Post.findById(id).populate('author', 'username'); // query the post to the database
-  res.status(200).json({
-    status: 'success',
-    message: 'Entire post page returned',
-    post,
-  });
+  response.status = 'success';
+  response.message = 'Entire post page returned';
+  response.post = post;
+  res.status(200).json(response);
 });
 
 app.listen(port, () => {
