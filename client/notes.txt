@@ -249,3 +249,5 @@ top and bottom margins/paddings are respected
 inline-block DOESN'T add a line-break after the element, so the element can sit next to other elements
 
 Why can React be single page? Because of 'Link to' instead of 'a href'
+
+timestamp -> 3:09:13
