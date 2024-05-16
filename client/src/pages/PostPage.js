@@ -1,4 +1,5 @@
 import { UserContext } from 'UserContext';
+import { baseURL } from 'config';
 import { formatISO9075 } from 'date-fns';
 import { useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
@@ -12,7 +13,7 @@ export default function PostPage() {
     const controller = new AbortController();
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/post/${id}`, {
+        const response = await fetch(`${baseURL}/post/${id}`, {
           signal: controller.signal,
           credentials: 'include',
         });

@@ -1,5 +1,5 @@
 import ReactQuill from 'react-quill';
-import { API_DOMAIN, API_PORT } from 'config';
+import { baseURL } from 'config';
 import { useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import { Navigate } from 'react-router-dom';
@@ -47,28 +47,6 @@ export default function CreatePost() {
     setFile(e.target.files);
   };
 
-  const baseURL = `${API_DOMAIN}:${API_PORT}`;
-  const path = '/create-post';
-  async function createNewPost(ev) {
-    ev.preventDefault();
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('summary', summary);
-    formData.append('content', content);
-    file !== null && formData.append('file', file[0]);
-
-    const response = await fetch(`${baseURL}${path}`, {
-      method: 'POST',
-      body: formData,
-      // We need to send the cookie because the user information is there
-      credentials: 'include',
-    });
-    const responseJson = await response.json();
-    if (response.ok) {
-      setRedirect(true);
-    }
-  }
-
   if (redirect) {
     return <Navigate to={'/'} />;
   }
@@ -102,4 +80,23 @@ export default function CreatePost() {
       </button>
     </form>
   );
+  async function createNewPost(ev) {
+    ev.preventDefault();
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('summary', summary);
+    formData.append('content', content);
+    file !== null && formData.append('file', file[0]);
+
+    const response = await fetch(`${baseURL}/create-post`, {
+      method: 'POST',
+      body: formData,
+      // We need to send the cookie because the user information is there
+      credentials: 'include',
+    });
+    // const responseJson = await response.json();
+    if (response.ok) {
+      setRedirect(true);
+    }
+  }
 }

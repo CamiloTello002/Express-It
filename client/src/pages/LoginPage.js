@@ -1,7 +1,7 @@
 import { UserContext } from 'UserContext';
 import { useContext, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { API_DOMAIN, API_PORT } from 'config';
+import { baseURL } from 'config';
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -9,10 +9,10 @@ export default function LoginPage() {
   const { setUserInfo } = useContext(UserContext);
 
   // const baseURL = 'http://localhost:4000';
-  const baseURL = `${API_DOMAIN}:${API_PORT}`;
+  // const baseURL = `${API_DOMAIN}:${API_PORT}`;
   // path url is set with a callback
   const pathURLcb = '/login';
-  const URLToAPI = new URL(pathURLcb, baseURL);
+  // const URLToAPI = new URL(pathURLcb, baseURL);
 
   async function login(ev) {
     ev.preventDefault();

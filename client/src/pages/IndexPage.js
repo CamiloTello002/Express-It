@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import Post from '../Post';
-import { API_DOMAIN } from 'config';
-import { API_PORT } from 'config';
+import { baseURL } from 'config';
+// import { API_PORT } from 'config';
 
 export default function IndexPage() {
-  const baseURL = `${API_DOMAIN}:${API_PORT}`;
-  const postsPath = '/posts';
+  // const baseURL = `${API_DOMAIN}:${API_PORT}`;
+  // const postsPath = '/posts';
 
   const [blogPosts, setBlogPosts] = useState([]);
 
@@ -16,7 +16,7 @@ export default function IndexPage() {
     const fetchData = async () => {
       try {
         // const posts = await fetch(URLToPosts, {
-        const posts = await fetch(`${baseURL}${postsPath}`, {
+        const posts = await fetch(`${baseURL}/posts`, {
           credentials: 'include',
           signal: controller.signal,
           method: 'GET',

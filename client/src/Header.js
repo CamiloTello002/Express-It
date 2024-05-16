@@ -1,10 +1,10 @@
 import { UserContext } from 'UserContext';
-import { API_DOMAIN, API_PORT } from 'config';
+import { baseURL } from 'config';
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 export default function Header() {
-  const baseURL = `${API_DOMAIN}:${API_PORT}`;
-  const path = '/profile';
+  // const baseURL = `${API_DOMAIN}:${API_PORT}`;
+  // const path = '/profile';
   const pathLogout = '/logout';
   // const URLToAPI = new URL(path, baseURL);
   // const URLToAPILogout = new URL(pathLogout, baseURL);
@@ -16,7 +16,7 @@ export default function Header() {
     const fetchData = async () => {
       try {
         // User data is in the SERVER
-        const response = await fetch(`${baseURL}${path}`, {
+        const response = await fetch(`${baseURL}/profile`, {
           credentials: 'include',
           signal: controller.signal,
         });
@@ -35,7 +35,7 @@ export default function Header() {
   }, []);
 
   function logout() {
-    fetch(`${baseURL}${pathLogout}`, {
+    fetch(`${baseURL}/logout`, {
       credentials: 'include',
       method: 'POST',
     });
@@ -53,6 +53,7 @@ export default function Header() {
       <nav>
         {username && (
           <>
+            <span>Hello, {username}!</span>
             <Link to="/create">Create new post</Link>
             <Link to="/" onClick={logout}>
               Logout

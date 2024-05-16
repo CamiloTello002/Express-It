@@ -145,6 +145,7 @@ a.edit-btn {
   align-items: center;
   text-decoration: none;
   gap: 5px;
+  margin-bottom: 10px;
 }
 
 a svg {

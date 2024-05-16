@@ -1,8 +1,8 @@
 import ReactQuill from 'react-quill';
-import { API_DOMAIN, API_PORT } from 'config';
-import { useState } from 'react';
+import { baseURL } from 'config';
+import { useEffect, useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
 // include modules (for customization)
 const modules = {
@@ -36,46 +36,51 @@ const formats = [
 ];
 
 // with doing export default function, we can smell a component about to be created
-export default function EditPost() {
+export default function CreatePost() {
   const [title, setTitle] = useState('');
   const [summary, setSummary] = useState('');
   const [content, setContent] = useState('');
   const [file, setFile] = useState(null);
   const [redirect, setRedirect] = useState(false);
+  const { id } = useParams();
+
+  // TODO: get post information right when the component is mounted
+  // 1) get the id
+  //   console.log(id);
+  useEffect(() => {
+    const controller = new AbortController();
+    const fetchData = async () => {
+      try {
+        // 1) request data from the post
+        // const response = await fetch(`http://localhost:4000/post/${id}`, {
+        const response = await fetch(`${baseURL}/post/${id}`, {
+          signal: controller.signal,
+        });
+        // 2) jsonize it
+        const responseJSON = await response.json();
+        setTitle(responseJSON.post.title);
+        setSummary(responseJSON.post.summary);
+        setContent(responseJSON.post.content);
+        // 3) update
+      } catch (error) {}
+    };
+    fetchData();
+    return () => {
+      controller.abort();
+    };
+  }, []);
 
   const onChangeFile = (e) => {
     setFile(e.target.files);
   };
 
-  const baseURL = `${API_DOMAIN}:${API_PORT}`;
-  const path = '/create-post';
-  async function editPost(ev) {
-    ev.preventDefault();
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('summary', summary);
-    formData.append('content', content);
-    file !== null && formData.append('file', file[0]);
-
-    const response = await fetch(`${baseURL}${path}`, {
-      method: 'POST',
-      body: formData,
-      // We need to send the cookie because the user information is there
-      credentials: 'include',
-    });
-    const responseJson = await response.json();
-    if (response.ok) {
-      setRedirect(true);
-    }
-  }
-
   if (redirect) {
-    return <Navigate to={'/'} />;
+    return <Navigate to={`/post/${id}`} />;
   }
 
   // finally return the rendered component
   return (
-    <form onSubmit={editPost}>
+    <form onSubmit={createNewPost}>
       <input
         type="title"
         placeholder={'Title'}
@@ -98,8 +103,36 @@ export default function EditPost() {
         onChange={(newValue) => setContent(newValue)}
       />
       <button style={{ marginTop: '7px' }} type="submit">
-        Create post
+        Edit post
       </button>
     </form>
   );
+  async function createNewPost(ev) {
+    ev.preventDefault();
+    // 1) create form
+    const formData = new FormData();
+    // const formData = new FormData();
+    formData.append('title', title);
+    formData.append('summary', summary);
+    formData.append('content', content);
+    file !== null && formData.append('file', file[0]);
+    file !== null && console.log(file);
+    const response = await fetch(`${baseURL}/post/${id}`, {
+      method: 'PATCH',
+      body: formData,
+    });
+
+    if (response.ok) setRedirect(true);
+
+    // const response = await fetch(`${baseURL}/create-post`, {
+    //   method: 'POST',
+    //   body: formData,
+    //   // We need to send the cookie because the user information is there
+    //   credentials: 'include',
+    // });
+    // // const responseJson = await response.json();
+    // if (response.ok) {
+    //   setRedirect(true);
+    // }
+  }
 }
