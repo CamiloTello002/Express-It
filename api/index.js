@@ -20,7 +20,11 @@ const app = express();
 const upload = multer({ storage: storage });
 
 const corsOptions = {
-  origin: ['http://localhost:5000', 'http://127.0.0.1'],
+  origin: [
+    'http://localhost:5000',
+    'http://127.0.0.1',
+    'https://blog-he4s.onrender.com',
+  ],
   credentials: true,
 };
 
@@ -168,6 +172,24 @@ app.get('/post/:id', async (req, res) => {
   response.message = 'Entire post page returned';
   response.post = post;
   res.status(200).json(response);
+});
+
+app.patch('/post/:id', upload.single('file'), async (req, res) => {
+  const { id } = req.params;
+  const { title, summary, content } = req.body;
+  let update = { title, summary, content };
+  console.log(req.body.cover);
+  if (req.body.cover) {
+    update.cover = req.body.cover;
+  }
+  // console.log(req.body);
+  // 1) find the document and update it
+  console.log('before updating, the update object looks like:');
+  console.log(update);
+  await Post.findByIdAndUpdate(id, update);
+  res.status(200).json({
+    message: `PATCH /posts/${id} found!`,
+  });
 });
 
 app.listen(port, () => {
