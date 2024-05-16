@@ -247,3 +247,5 @@ timestamp is now -> 3:05:55
 the inline-block allows us to set a width and height; inline doesn't
 top and bottom margins/paddings are respected
 inline-block DOESN'T add a line-break after the element, so the element can sit next to other elements
+
+Why can React be single page? Because of 'Link to' instead of 'a href'

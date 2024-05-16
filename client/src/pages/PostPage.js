@@ -1,7 +1,7 @@
 import { UserContext } from 'UserContext';
 import { formatISO9075 } from 'date-fns';
 import { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 export default function PostPage() {
   const { userInfo } = useContext(UserContext);
@@ -46,7 +46,7 @@ export default function PostPage() {
           // userInfo.id === postInfo.post.author._id && <div>Edit page</div>}
           userInfo.id === postInfo.post.author._id && (
             <div className="edit-row">
-              <a className="edit-btn" href="#">
+              <Link className="edit-btn" to={`/edit/${postInfo.post._id}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -62,7 +62,7 @@ export default function PostPage() {
                   />
                 </svg>
                 Edit your post
-              </a>
+              </Link>
             </div>
           )}
         <div className="image">
