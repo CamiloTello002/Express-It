@@ -46,7 +46,9 @@ export default function PostPage() {
           // userInfo.id === postInfo.post.author._id && <div>Edit page</div>}
           userInfo.id === postInfo.post.author._id && (
             <div className="edit-row">
-              <a className="edit-btn"></a>
+              <a className="edit-btn" href="#">
+                Edit your post
+              </a>
             </div>
           )}
         <div className="image">
