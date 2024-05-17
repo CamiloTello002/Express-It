@@ -90,6 +90,7 @@ app.post('/login', async (req, res, next) => {
         res
           .cookie('token', token, {
             secure: true,
+            sameSite: 'none',
           })
           .json({
             id: userDoc._id,
