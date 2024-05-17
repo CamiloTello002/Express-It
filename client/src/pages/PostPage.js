@@ -68,7 +68,8 @@ export default function PostPage() {
           )}
         <div className="image">
           <img
-            src={`http://localhost:4000/${postInfo.post.cover}`}
+            // src={`http://localhost:4000/${postInfo.post.cover}`}
+            src={`${baseURL}/${postInfo.post.cover}`}
             alt="Post cover"
           />
         </div>
