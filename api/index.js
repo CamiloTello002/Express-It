@@ -19,6 +19,8 @@ const storage = multer.diskStorage({
 const app = express();
 const upload = multer({ storage: storage });
 
+console.log(`Current environment is ${process.env.NODE_ENV}`);
+
 const corsOptions = {
   origin: [
     'http://localhost:5000',
@@ -194,6 +196,13 @@ app.patch('/post/:id', upload.single('file'), async (req, res) => {
   await Post.findByIdAndUpdate(id, update);
   res.status(200).json({
     message: `PATCH /posts/${id} found!`,
+  });
+});
+
+app.delete('/post/:id', (req, res) => {
+  const { id } = req.params;
+  res.status(204).json({
+    message: `DELETE /post/${id} found!`,
   });
 });
 

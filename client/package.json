@@ -15,7 +15,8 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "set PORT=5000 && react-scripts start",
+    "start:dev": "set REACT_APP_NODE_ENV=development && set PORT=5000 && react-scripts start",
+    "start:prod": "set REACT_APP_NODE_ENV=production && set PORT=5000 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -37,5 +38,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }

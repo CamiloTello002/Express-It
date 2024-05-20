@@ -233,3 +233,14 @@ mongoose.Types.ObjectId (in code) -> Does the REAL WORK of creating and handling
 ** Maps vs Objects in JavaScript **
 Both are similar in the sense that both let you set keys ...
 Don't lose focus lol
+
+
+Okay, the project is finished...
+Now, let's learn more things...
+
+For making react read your environment variables, they MUST start with REACT_APP_.
+
+And when you read a file, this is what happens:
+You use the fs module and the readFile method.
+If you only specify the path, the read file will be DECODED
+If you want to read it or print it to stdout, you need to ENCODE it. The most recommended one is utf-8 (it just works)

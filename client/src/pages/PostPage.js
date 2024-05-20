@@ -64,6 +64,7 @@ export default function PostPage() {
                 </svg>
                 Edit your post
               </Link>
+              <a className="edit-btn">delete post</a>
             </div>
           )}
         <div className="image">

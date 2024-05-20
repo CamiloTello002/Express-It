@@ -17,6 +17,10 @@ export default function LoginPage() {
   async function login(ev) {
     ev.preventDefault();
     // const response = await fetch(URLToAPI, {
+    console.log(process.env.REACT_APP_NODE_ENV);
+    console.log(process.env.REACT_APP_NODE_ENV === 'development');
+    console.log(typeof process.env.REACT_APP_NODE_ENV);
+    console.log(baseURL);
     const response = await fetch(`${baseURL}${pathURLcb}`, {
       method: 'POST',
       body: JSON.stringify({ username, password }),
