@@ -64,7 +64,7 @@ export default function PostPage() {
                 </svg>
                 Edit your post
               </Link>
-              <Link className="delete-btn" to={`/edit/${postInfo.post._id}`}>
+              <Link className="delete-btn" onClick={deletedPost}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -102,4 +102,7 @@ export default function PostPage() {
   //     <img src={`http://localhost:4000/default.png`} />
   //   </div>
   // );
+  function deletedPost() {
+    console.log('deleted now!!!');
+  }
 }
