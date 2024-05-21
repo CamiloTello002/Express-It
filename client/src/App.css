@@ -151,3 +151,7 @@ a.edit-btn {
 a svg {
   height: 17px;
 }
+
+.edit-row {
+  display: flex;
+}
