@@ -64,7 +64,7 @@ export default function PostPage() {
                 </svg>
                 Edit your post
               </Link>
-              <Link className="delete-btn" onClick={deletedPost}>
+              <Link className="delete-btn" onClick={deletedPost} to={'/'}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -97,12 +97,10 @@ export default function PostPage() {
   } else {
     return <div>loading...</div>;
   }
-  // return (
-  //   <div>
-  //     <img src={`http://localhost:4000/default.png`} />
-  //   </div>
-  // );
-  function deletedPost() {
-    console.log('deleted now!!!');
+  async function deletedPost() {
+    const response = await fetch(`${baseURL}/post/${id}`, {
+      method: 'DELETE',
+    });
+    console.log(response);
   }
 }

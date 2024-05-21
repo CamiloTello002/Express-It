@@ -199,11 +199,13 @@ app.patch('/post/:id', upload.single('file'), async (req, res) => {
   });
 });
 
-app.delete('/post/:id', (req, res) => {
+app.delete('/post/:id', async (req, res) => {
+  // 1) get post id
   const { id } = req.params;
-  res.status(204).json({
-    message: `DELETE /post/${id} found!`,
-  });
+  // 2) delete it
+  await Post.findByIdAndDelete(id);
+  console.log('route hit');
+  res.status(204).send('done');
 });
 
 app.listen(port, () => {

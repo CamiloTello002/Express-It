@@ -157,3 +157,9 @@ a svg {
   display: flex;
   gap: 7px;
 }
+
+a.logo {
+  display: flex;
+  height: 100%;
+  gap: 5px;
+}

@@ -48,6 +48,12 @@ export default function Header() {
   return (
     <header>
       <Link to="/" className="logo">
+        <img
+          src="./icon.svg"
+          alt="Express It logo"
+          height={'40px'}
+          className="logo"
+        />
         Express It
       </Link>
       <nav>
