@@ -1,3 +1,3 @@
-baseURL = 'https://blog-api-ddt8.onrender.com';
+const baseURL = 'https://blog-api-ddt8.onrender.com';
 
 export { baseURL };
