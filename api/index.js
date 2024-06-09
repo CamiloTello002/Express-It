@@ -55,6 +55,12 @@ mongoose
 const port = process.env.PORT || 4000;
 
 
+/**
+ * Route definition. Routes are defined according to what we have in the database
+ */
+app.use('/api/v1/posts', postRouter)
+app.use('/api/v1/users', postRouter)
+
 // autorizacion
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
@@ -113,6 +119,7 @@ app.post('/logout', (req, res) => {
   res.cookie('token', '').json('ok');
 });
 
+app.use('/')
 // esto es más bien para el usuario
 app.get('/profile', (req, res) => {
   const { token } = req.cookies;
