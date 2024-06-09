@@ -2,6 +2,10 @@ const express = require('express');
 const multer = require('multer');
 const cors = require('cors');
 
+/** Importing routes from ./routes/ */
+const postRouter = require('./routes/postRoutes');
+const userRouter = require('./routes/userRoutes');
+
 // cosas que deben ir en los controladores
 const mongoose = require('mongoose');
 const User = require('./models/User');
@@ -59,7 +63,7 @@ const port = process.env.PORT || 4000;
  * Route definition. Routes are defined according to what we have in the database
  */
 app.use('/api/v1/posts', postRouter)
-app.use('/api/v1/users', postRouter)
+app.use('/api/v1/users', userRouter)
 
 // autorizacion
 app.post('/register', async (req, res) => {
@@ -119,7 +123,6 @@ app.post('/logout', (req, res) => {
   res.cookie('token', '').json('ok');
 });
 
-app.use('/')
 // esto es más bien para el usuario
 app.get('/profile', (req, res) => {
   const { token } = req.cookies;

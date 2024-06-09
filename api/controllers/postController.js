@@ -1,3 +1,19 @@
+exports.getPosts = (req, res) => {
+    console.log('getPosts controller up');
+    res.send('getPosts endpoint up');
+}
+exports.getPost = (req, res) => {
+    console.log('getPosts controller up');
+    res.send('getPosts endpoint up');
+}
+exports.updatePost = (req, res) => {
+    console.log('getPosts controller up');
+    res.send('getPosts endpoint up');
+}
+exports.deletePost = (req, res) => {
+    console.log('getPosts controller up');
+    res.send('getPosts endpoint up');
+}
 exports.createPost = async (req, res) => {
     const { title, summary, content } = req.body;
     const { token } = req.cookies;
