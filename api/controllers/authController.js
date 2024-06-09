@@ -1,3 +1,6 @@
+const User = require('./../models/User');
+
+const bcrypt = require('bcryptjs')
 const AppError = require('./../utils/appError')
 
 exports.register = async (req, res, next) => {
@@ -12,10 +15,11 @@ exports.register = async (req, res, next) => {
             password: hashedPassword,
         });
         res.status(200).json({
-            requestData: { username, password },
+            message: 'Register successful!',
         });
     } catch (error) {
-        res.status(400).json(error);
+        if (error.errorResponse.code === 11000)
+            return next(new AppError('This user already exists', 400))
     }
 }
 
