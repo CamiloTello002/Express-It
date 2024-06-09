@@ -159,7 +159,6 @@ app.post('/create-post', upload.single('file'), async (req, res) => {
     },
   });
 });
-
 // todos los posts
 app.get('/posts', async (req, res) => {
   const posts = await Post.find()
