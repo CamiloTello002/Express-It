@@ -1,5 +1,6 @@
 exports.register = async (req, res) => {
     const { username, password } = req.body;
+    // TODO: throw an error when there's not a username nor password
     try {
         const saltGenerated = await bcrypt.genSalt(11);
         const hashedPassword = await bcrypt.hash(req.body.password, saltGenerated);
