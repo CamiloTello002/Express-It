@@ -1,6 +1,14 @@
 exports.getPosts = (req, res) => {
-    console.log('getPosts controller up');
-    res.send('getPosts endpoint up');
+    async (req, res) => {
+        const posts = await Post.find()
+            .populate('author', 'username')
+            .sort({ createdAt: -1 });
+        res.json({
+            status: 'success',
+            message: 'Posts already returned',
+            posts,
+        });
+    }
 }
 exports.getPost = (req, res) => {
     console.log('getPosts controller up');
