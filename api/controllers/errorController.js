@@ -1,3 +1,6 @@
 module.exports = (err, req, res, next) => {
-    console.log('an error was detected');
+    return res.json({
+        message: 'an error occurred',
+        error: err
+    })
 }

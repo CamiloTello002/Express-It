@@ -1,6 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const cors = require('cors');
+const globalErrorHandler = require('./controllers/errorController');
 
 /** Importing routes from ./routes/ */
 const postRouter = require('./routes/postRoutes');
@@ -223,6 +224,8 @@ app.delete('/post/:id', async (req, res) => {
   console.log('route hit');
   res.status(204).send('done');
 });
+
+app.use(globalErrorHandler);
 
 app.listen(port, () => {
   console.log(`App listening for requests on port ${port}`);
