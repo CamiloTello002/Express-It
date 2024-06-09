@@ -1,26 +1,30 @@
 const express = require('express');
 const multer = require('multer');
 const cors = require('cors');
+
+// cosas que deben ir en los controladores
 const mongoose = require('mongoose');
 const User = require('./models/User');
 const Post = require('./models/Post');
+
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 require('dotenv').config({ path: './.env' });
 
+// para almacenamiento de archivos
 const storage = multer.diskStorage({
   destination: `${__dirname}/uploads`,
   filename: function (req, file, cb) {
     cb(null, file.originalname);
   },
 });
-
-const app = express();
 const upload = multer({ storage: storage });
 
-console.log(`Current environment is ${process.env.NODE_ENV}`);
+const app = express();
+// console.log(`Current environment is ${process.env.NODE_ENV}`);
 
+// CORS
 const corsOptions = {
   origin: [
     'http://localhost:5000',
@@ -30,6 +34,7 @@ const corsOptions = {
   credentials: true,
 };
 
+// Middlewares
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded());
@@ -37,18 +42,20 @@ app.use(cookieParser());
 // We need to make the uploads folder available to the frontend for profile photos
 app.use(express.static('uploads'));
 
+// para la base de datos
 const DB = process.env.MONGODB_URI.replace(
   '<password>',
   process.env.MONGODB_PASSWORD
 );
-
-const port = process.env.PORT || 4000;
-
 mongoose
   .connect(DB)
   .then(() => console.log('Connected to database!'))
   .catch(() => console.log('Failed to connect to database'));
 
+const port = process.env.PORT || 4000;
+
+
+// autorizacion
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -65,7 +72,6 @@ app.post('/register', async (req, res) => {
     res.status(400).json(error.errorResponse.errmsg);
   }
 });
-
 app.post('/login', async (req, res, next) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -100,9 +106,14 @@ app.post('/login', async (req, res, next) => {
           });
       }
     );
-  } catch (error) {}
+  } catch (error) { }
+});
+app.post('/logout', (req, res) => {
+  // An empty cookie will act as if there wasn't a cookie
+  res.cookie('token', '').json('ok');
 });
 
+// esto es más bien para el usuario
 app.get('/profile', (req, res) => {
   const { token } = req.cookies;
   if (!token) {
@@ -116,11 +127,8 @@ app.get('/profile', (req, res) => {
   }
 });
 
-app.post('/logout', (req, res) => {
-  // An empty cookie will act as if there wasn't a cookie
-  res.cookie('token', '').json('ok');
-});
 
+// crear un solo post
 app.post('/create-post', upload.single('file'), async (req, res) => {
   const { title, summary, content } = req.body;
   const { token } = req.cookies;
@@ -152,6 +160,7 @@ app.post('/create-post', upload.single('file'), async (req, res) => {
   });
 });
 
+// todos los posts
 app.get('/posts', async (req, res) => {
   const posts = await Post.find()
     .populate('author', 'username')
@@ -163,7 +172,7 @@ app.get('/posts', async (req, res) => {
     posts,
   });
 });
-
+// RUD para un solo post
 app.get('/post/:id', async (req, res) => {
   const { token } = req.cookies;
   const { id } = req.params; // extract id from parameter
@@ -180,7 +189,6 @@ app.get('/post/:id', async (req, res) => {
   response.post = post;
   res.status(200).json(response);
 });
-
 app.patch('/post/:id', upload.single('file'), async (req, res) => {
   const { id } = req.params;
   const { title, summary, content } = req.body;
@@ -198,7 +206,6 @@ app.patch('/post/:id', upload.single('file'), async (req, res) => {
     message: `PATCH /posts/${id} found!`,
   });
 });
-
 app.delete('/post/:id', async (req, res) => {
   // 1) get post id
   const { id } = req.params;
