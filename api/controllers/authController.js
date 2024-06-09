@@ -1,6 +1,8 @@
 const User = require('./../models/User');
 
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken');
+
 const AppError = require('./../utils/appError')
 
 exports.register = async (req, res, next) => {
@@ -25,20 +27,13 @@ exports.register = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
     const { username, password } = req.body;
-    if (!username || !password) {
-        return res.status(404).json({
-            status: 'failed',
-            message: 'You need to enter a username or password',
-        });
-    }
+    if (!username || !password)
+        return next(new AppError('You need to enter a username or password', 400))
+    // if (!username || !password) {
     try {
         const userDoc = await User.findOne({ username }).select('+password');
-
         if (!userDoc || !(await bcrypt.compare(password, userDoc.password))) {
-            return res.status(400).json({
-                status: 'failed',
-                message: 'username or password incorrect!',
-            });
+            return next(new AppError('Username or password incorrect!', 400));
         }
         jwt.sign(
             { username, id: userDoc._id },
@@ -46,16 +41,18 @@ exports.login = async (req, res, next) => {
             {},
             (err, token) => {
                 if (err) throw err;
-                res
-                    .cookie('token', token, {
-                        secure: true,
-                        sameSite: 'none',
-                    })
-                    .json({
-                        id: userDoc._id,
-                        username,
-                    });
+                res.cookie('token', token, {
+                    secure: true,
+                    sameSite: 'none',
+                }).json({
+                    message: 'successfully logged in!'
+                });
             }
         );
     } catch (error) { }
+}
+
+exports.logout = (req, res) => {
+    // An empty cookie will act as if there wasn't a cookie
+    res.cookie('token', '').json('ok');
 }
