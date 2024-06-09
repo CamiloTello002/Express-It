@@ -11,7 +11,7 @@ exports.register = async (req, res) => {
             requestData: { username, password },
         });
     } catch (error) {
-        res.status(400).json(error.errorResponse.errmsg);
+        res.status(400).json(error);
     }
 }
 
