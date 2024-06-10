@@ -1,3 +1,6 @@
 exports.getUserProfile = (req, res) => {
-    res.send('returning user profile...');
+    res.status(200).json({
+        id: req.user._id,
+        username: req.user.username
+    })
 }
