@@ -29,7 +29,6 @@ exports.login = async (req, res, next) => {
     const { username, password } = req.body;
     if (!username || !password)
         return next(new AppError('You need to enter a username or password', 400))
-    // if (!username || !password) {
     try {
         const userDoc = await User.findOne({ username }).select('+password');
         if (!userDoc || !(await bcrypt.compare(password, userDoc.password))) {
@@ -55,4 +54,13 @@ exports.login = async (req, res, next) => {
 exports.logout = (req, res) => {
     // An empty cookie will act as if there wasn't a cookie
     res.cookie('token', '').json('ok');
+}
+
+exports.protect = (req, res) => {
+    if (req.cookies.token) {
+        const token = req.cookies.token;
+    }
+    console.log('the token is', token)
+
+    res.send('hit route');
 }

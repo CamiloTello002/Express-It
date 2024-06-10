@@ -208,8 +208,10 @@ app.delete('/post/:id', async (req, res) => {
   res.status(204).send('done');
 });
 
+/** Middleware for global error handling */
 app.use(globalErrorHandler);
 
+/** Server goes up */
 app.listen(port, () => {
   console.log(`App listening for requests on port ${port}`);
 });
