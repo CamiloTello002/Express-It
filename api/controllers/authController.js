@@ -2,6 +2,7 @@ const User = require('./../models/User');
 
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
+const { promisify } = require('util')
 
 const AppError = require('./../utils/appError')
 
@@ -51,16 +52,28 @@ exports.login = async (req, res, next) => {
     } catch (error) { }
 }
 
-exports.logout = (req, res) => {
+exports.logout = async (req, res) => {
     // An empty cookie will act as if there wasn't a cookie
     res.cookie('token', '').json('ok');
 }
 
-exports.protect = (req, res) => {
+exports.protect = async (req, res, next) => {
+    let token;
     if (req.cookies.token) {
-        const token = req.cookies.token;
+        token = req.cookies.token;
+        // console.log(token)
+    } else {
+        return next(new AppError('You\'re not logged in', 401))
     }
-    console.log('the token is', token)
 
-    res.send('hit route');
+    try {
+        // 1. Verify the token
+        const decodedToken = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
+        // 2. Verify that the username exists
+        res.send('hit route');
+    } catch (error) {
+        return next(new AppError(error, 400));
+    }
+
 }
