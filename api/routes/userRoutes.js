@@ -1,5 +1,6 @@
 const express = require('express');
 const authController = require('./../controllers/authController')
+const userController = require('./../controllers/userController')
 
 const router = express.Router();
 
@@ -7,8 +8,9 @@ router.post('/register', authController.register);
 router.post('/login', authController.login);
 router.post('/logout', authController.logout);
 
-router.get('/loggedin', authController.protect);
+// Protect following routes. Only logged users can access them
+router.use(authController.protect);
 
-// TODO: Add a middleware that protects routes in case the user is logged in
+router.get('/profile', userController.getUserProfile);
 
 module.exports = router;

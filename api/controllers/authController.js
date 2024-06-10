@@ -61,17 +61,27 @@ exports.protect = async (req, res, next) => {
     let token;
     if (req.cookies.token) {
         token = req.cookies.token;
-        // console.log(token)
+        console.log('continued...')
     } else {
+        console.log('not continued...')
         return next(new AppError('You\'re not logged in', 401))
     }
 
     try {
         // 1. Verify the token
         const decodedToken = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+        console.log(decodedToken);
 
         // 2. Verify that the username exists
-        res.send('hit route');
+        const currentUser = await User.findById(decodedToken.id).select('-password');
+        if (!currentUser) return next(new AppError('User not found! Please log in again.', 401))
+
+        // 3. save the user in the req object
+        req.user = currentUser;
+
+        next();
+        // res.send("you're indeed logged in!");
+
     } catch (error) {
         return next(new AppError(error, 400));
     }
