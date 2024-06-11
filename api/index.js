@@ -15,7 +15,6 @@ require('dotenv').config({ path: './.env' });
 
 const app = express();
 
-// CORS
 const corsOptions = {
   origin: [
     'http://localhost:5000',
@@ -24,16 +23,14 @@ const corsOptions = {
   ],
   credentials: true,
 };
-
-// Middlewares
 app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(cookieParser());
-// We need to make the uploads folder available to the frontend for profile photos
 app.use(express.static('uploads'));
 
-// para la base de datos
+/** Database connection */
 const DB = process.env.MONGODB_URI.replace(
   '<password>',
   process.env.MONGODB_PASSWORD
@@ -43,9 +40,7 @@ mongoose
   .then(() => console.log('Connected to database!'))
   .catch(() => console.log('Failed to connect to database'));
 
-/**
- * ROUTE DEFINITIONS
- */
+/** Route definitions */
 app.use('/api/v1/posts', postRouter)
 app.use('/api/v1/users', userRouter)
 
