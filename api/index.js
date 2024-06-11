@@ -1,16 +1,17 @@
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
+
+const globalErrorHandler = require('./controllers/errorController');
 
 /** Importing routes from ./routes/ */
 const postRouter = require('./routes/postRoutes');
 const userRouter = require('./routes/userRoutes');
 
-const globalErrorHandler = require('./controllers/errorController');
-
 /**For database connection */
 const mongoose = require('mongoose');
 
-const cookieParser = require('cookie-parser');
+/** For environment variables */
 require('dotenv').config({ path: './.env' });
 
 const app = express();

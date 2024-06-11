@@ -8,7 +8,7 @@ const storageConfigs = multer.diskStorage({
         cb(null, file.originalname);
     },
 })
-exports.uploadInstance = multer({ storage: storage });
+exports.uploadInstance = multer({ storage: storageConfigs });
 
 exports.getPosts = async (req, res) => {
     const posts = await Post.find()
