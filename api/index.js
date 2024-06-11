@@ -66,11 +66,6 @@ const port = process.env.PORT || 4000;
 app.use('/api/v1/posts', postRouter)
 app.use('/api/v1/users', userRouter)
 
-app.post('/logout', (req, res) => {
-  // An empty cookie will act as if there wasn't a cookie
-  res.cookie('token', '').json('ok');
-});
-
 // esto es más bien para el usuario
 app.get('/profile', (req, res) => {
   const { token } = req.cookies;
