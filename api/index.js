@@ -66,21 +66,6 @@ const port = process.env.PORT || 4000;
 app.use('/api/v1/posts', postRouter)
 app.use('/api/v1/users', userRouter)
 
-// esto es más bien para el usuario
-app.get('/profile', (req, res) => {
-  const { token } = req.cookies;
-  if (!token) {
-    // there's no token, so we can't decode the token
-    return res.status(200).json({});
-  } else {
-    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
-      if (err) throw err;
-      return res.json(decodedToken);
-    });
-  }
-});
-
-
 // crear un solo post
 app.post('/create-post', upload.single('file'), async (req, res) => {
   const { title, summary, content } = req.body;
