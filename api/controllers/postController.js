@@ -42,9 +42,21 @@ exports.createPost = async (req, res) => {
     });
 }
 
-exports.getPost = (req, res) => {
-    console.log('getPosts controller up');
-    res.send('getPosts endpoint up');
+exports.getPost = async (req, res) => {
+    const { token } = req.cookies;
+    const { id } = req.params; // extract id from parameter
+    const response = {};
+    if (token) {
+        jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+            if (err) throw err;
+            response.author = decodedToken.id;
+        });
+    }
+    const post = await Post.findById(id).populate('author', 'username'); // query the post to the database
+    response.status = 'success';
+    response.message = 'Entire post page returned';
+    response.post = post;
+    res.status(200).json(response);
 }
 exports.updatePost = (req, res) => {
     console.log('getPosts controller up');
