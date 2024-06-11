@@ -10,5 +10,4 @@ router.use(authController.protect);
 router.post('/create-post', controller.createPost);
 router.route('/post/:id').get(controller.getPost).patch(controller.uploadInstance.single('file'), controller.updatePost).delete(controller.deletePost);
 
-
 module.exports = router;

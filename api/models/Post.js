@@ -13,6 +13,7 @@ const PostSchema = new Schema(
     author: {
       type: Schema.Types.ObjectId,
       ref: 'User',
+      required: [true, 'You must provide an author']
     },
   },
   {

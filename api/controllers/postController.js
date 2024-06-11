@@ -1,5 +1,7 @@
 const Post = require('./../models/Post');
 const multer = require('multer');
+const jwt = require('jsonwebtoken');
+const AppError = require('../utils/appError');
 
 /** For file storage */
 const storageConfigs = multer.diskStorage({
@@ -21,19 +23,17 @@ exports.getPosts = async (req, res) => {
     });
 }
 
-exports.createPost = async (req, res) => {
+exports.createPost = async (req, res, next) => {
+    // FIXME: validate these inputs
     const { title, summary, content } = req.body;
-    const { token } = req.cookies;
-    let author;
-    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
-        if (err) throw err;
-        author = decodedToken.id;
-    });
+    const author = req.user._id;
+    if (!title || !summary || !content)
+        return next(new AppError('You must provie a title, summary and content', 401))
     const postParams = {
         title,
         summary,
         content,
-        author,
+        author
     };
     // User may not upload a photo
     if (req.file !== undefined) {
