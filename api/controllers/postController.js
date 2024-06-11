@@ -1,4 +1,14 @@
 const Post = require('./../models/Post');
+const multer = require('multer');
+
+/** For file storage */
+const storageConfigs = multer.diskStorage({
+    destination: `${__dirname}/uploads`,
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    },
+})
+exports.uploadInstance = multer({ storage: storage });
 
 exports.getPosts = async (req, res) => {
     const posts = await Post.find()
@@ -58,11 +68,28 @@ exports.getPost = async (req, res) => {
     response.post = post;
     res.status(200).json(response);
 }
-exports.updatePost = (req, res) => {
-    console.log('getPosts controller up');
-    res.send('getPosts endpoint up');
+exports.updatePost = async (req, res) => {
+    const { id } = req.params;
+    const { title, summary, content } = req.body;
+    let update = { title, summary, content };
+    console.log(req.body.cover);
+    if (req.body.cover) {
+        update.cover = req.body.cover;
+    }
+    // console.log(req.body);
+    // 1) find the document and update it
+    console.log('before updating, the update object looks like:');
+    console.log(update);
+    await Post.findByIdAndUpdate(id, update);
+    res.status(200).json({
+        message: `PATCH /posts/${id} found!`,
+    });
 }
-exports.deletePost = (req, res) => {
-    console.log('getPosts controller up');
-    res.send('getPosts endpoint up');
+exports.deletePost = async (req, res) => {
+    // 1) get post id
+    const { id } = req.params;
+    // 2) delete it
+    await Post.findByIdAndDelete(id);
+    console.log('route hit');
+    res.status(204).send('done');
 }
