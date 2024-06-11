@@ -66,42 +66,6 @@ const port = process.env.PORT || 4000;
 app.use('/api/v1/posts', postRouter)
 app.use('/api/v1/users', userRouter)
 
-app.post('/login', async (req, res, next) => {
-  const { username, password } = req.body;
-  if (!username || !password) {
-    return res.status(404).json({
-      status: 'failed',
-      message: 'You need to enter a username or password',
-    });
-  }
-  try {
-    const userDoc = await User.findOne({ username }).select('+password');
-
-    if (!userDoc || !(await bcrypt.compare(password, userDoc.password))) {
-      return res.status(400).json({
-        status: 'failed',
-        message: 'username or password incorrect!',
-      });
-    }
-    jwt.sign(
-      { username, id: userDoc._id },
-      process.env.JWT_SECRET,
-      {},
-      (err, token) => {
-        if (err) throw err;
-        res
-          .cookie('token', token, {
-            secure: true,
-            sameSite: 'none',
-          })
-          .json({
-            id: userDoc._id,
-            username,
-          });
-      }
-    );
-  } catch (error) { }
-});
 app.post('/logout', (req, res) => {
   // An empty cookie will act as if there wasn't a cookie
   res.cookie('token', '').json('ok');
