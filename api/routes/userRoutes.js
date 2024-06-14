@@ -11,6 +11,6 @@ router.post('/logout', authController.logout);
 // Protect following routes. Only logged users can access them
 router.use(authController.protect);
 
-router.get('/profile', userController.getUserProfile);
+router.route('/profile').get(userController.getUserProfile).delete(userController.deleteUserProfile);
 
 module.exports = router;

@@ -16,14 +16,14 @@ export default function Header() {
     const fetchData = async () => {
       try {
         // User data is in the SERVER
-        const response = await fetch(`${baseURL}/profile`, {
+        const response = await fetch(`${baseURL}/api/v1/users/profile`, {
           credentials: 'include',
           signal: controller.signal,
         });
         // Useful for setting user information
         const json = await response.json();
         setUserInfo(json);
-      } catch (err) {}
+      } catch (err) { }
     };
     // useEffect DOESN'T allow async functions as first parameter,
     // so a separate function was needed
