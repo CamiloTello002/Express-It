@@ -8,9 +8,6 @@ const globalErrorHandler = require('./controllers/errorController');
 const postRouter = require('./routes/postRoutes');
 const userRouter = require('./routes/userRoutes');
 
-/**For database connection */
-const mongoose = require('mongoose');
-
 const app = express();
 
 const corsOptions = {
