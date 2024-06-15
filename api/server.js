@@ -8,4 +8,4 @@ mongoose
     .then(() => {
         app.listen(port, console.log(`Server started on port ${port}`))
     })
-    .catch(() => console.log('Failed to connect to database'));
+    .catch((error) => console.log(error));
