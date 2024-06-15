@@ -13,13 +13,13 @@ export default function PostPage() {
     const controller = new AbortController();
     const fetchData = async () => {
       try {
-        const response = await fetch(`${baseURL}/post/${id}`, {
+        const response = await fetch(`${baseURL}/api/v1/posts/${id}`, {
           signal: controller.signal,
           credentials: 'include',
         });
         const responseJSON = await response.json();
         setPostInfo(responseJSON);
-      } catch (error) {}
+      } catch (error) { }
     };
     fetchData();
     return () => {
@@ -98,7 +98,7 @@ export default function PostPage() {
     return <div>loading...</div>;
   }
   async function deletedPost() {
-    const response = await fetch(`${baseURL}/post/${id}`, {
+    const response = await fetch(`${baseURL}/api/v1/posts/${id}`, {
       method: 'DELETE',
     });
     console.log(response);

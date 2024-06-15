@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export default function Header() {
   // const baseURL = `${API_DOMAIN}:${API_PORT}`;
   // const path = '/profile';
-  const pathLogout = '/logout';
+  const pathLogout = '/api/v1/users/logout';
   // const URLToAPI = new URL(path, baseURL);
   // const URLToAPILogout = new URL(pathLogout, baseURL);
   const { setUserInfo, userInfo } = useContext(UserContext);
@@ -35,7 +35,7 @@ export default function Header() {
   }, []);
 
   function logout() {
-    fetch(`${baseURL}/logout`, {
+    fetch(`${baseURL}/api/v1/users/logout`, {
       credentials: 'include',
       method: 'POST',
     });

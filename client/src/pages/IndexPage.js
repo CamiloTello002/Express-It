@@ -16,14 +16,14 @@ export default function IndexPage() {
     const fetchData = async () => {
       try {
         // const posts = await fetch(URLToPosts, {
-        const posts = await fetch(`${baseURL}/posts`, {
+        const posts = await fetch(`${baseURL}/api/v1/posts`, {
           credentials: 'include',
           signal: controller.signal,
           method: 'GET',
         });
         const postsJSON = await posts.json();
         setBlogPosts(postsJSON.posts);
-      } catch (error) {}
+      } catch (error) { }
     };
     fetchData();
 

@@ -8,11 +8,7 @@ export default function LoginPage() {
   const [redirect, setRedirect] = useState(false);
   const { setUserInfo } = useContext(UserContext);
 
-  // const baseURL = 'http://localhost:4000';
-  // const baseURL = `${API_DOMAIN}:${API_PORT}`;
-  // path url is set with a callback
-  const pathURLcb = '/login';
-  // const URLToAPI = new URL(pathURLcb, baseURL);
+  const pathURLcb = '/api/v1/users/login';
 
   async function login(ev) {
     ev.preventDefault();

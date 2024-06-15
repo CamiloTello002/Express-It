@@ -11,9 +11,6 @@ const userRouter = require('./routes/userRoutes');
 /**For database connection */
 const mongoose = require('mongoose');
 
-/** For environment variables */
-require('dotenv').config({ path: './.env' });
-
 const app = express();
 
 const corsOptions = {
@@ -31,16 +28,6 @@ app.use(express.urlencoded());
 app.use(cookieParser());
 app.use(express.static('uploads'));
 
-/** Database connection */
-const DB = process.env.MONGODB_URI.replace(
-  '<password>',
-  process.env.MONGODB_PASSWORD
-);
-mongoose
-  .connect(DB)
-  .then(() => console.log('Connected to database!'))
-  .catch(() => console.log('Failed to connect to database'));
-
 /** Route definitions */
 app.use('/api/v1/posts', postRouter)
 app.use('/api/v1/users', userRouter)
@@ -48,8 +35,4 @@ app.use('/api/v1/users', userRouter)
 /** Middleware for global error handling */
 app.use(globalErrorHandler);
 
-/** Server goes up */
-const port = process.env.PORT || 4000;
-app.listen(port, () => {
-  console.log(`App listening for requests on port ${port}`);
-});
+module.exports = app;

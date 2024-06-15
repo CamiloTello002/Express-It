@@ -52,8 +52,7 @@ export default function CreatePost() {
     const fetchData = async () => {
       try {
         // 1) request data from the post
-        // const response = await fetch(`http://localhost:4000/post/${id}`, {
-        const response = await fetch(`${baseURL}/post/${id}`, {
+        const response = await fetch(`${baseURL}/api/v1/posts/${id}`, {
           signal: controller.signal,
         });
         // 2) jsonize it
@@ -62,7 +61,7 @@ export default function CreatePost() {
         setSummary(responseJSON.post.summary);
         setContent(responseJSON.post.content);
         // 3) update
-      } catch (error) {}
+      } catch (error) { }
     };
     fetchData();
     return () => {
@@ -117,22 +116,11 @@ export default function CreatePost() {
     formData.append('content', content);
     file !== null && formData.append('file', file[0]);
     file !== null && console.log(file);
-    const response = await fetch(`${baseURL}/post/${id}`, {
+    const response = await fetch(`${baseURL}/api/v1/post/${id}`, {
       method: 'PATCH',
       body: formData,
     });
 
     if (response.ok) setRedirect(true);
-
-    // const response = await fetch(`${baseURL}/create-post`, {
-    //   method: 'POST',
-    //   body: formData,
-    //   // We need to send the cookie because the user information is there
-    //   credentials: 'include',
-    // });
-    // // const responseJson = await response.json();
-    // if (response.ok) {
-    //   setRedirect(true);
-    // }
   }
 }

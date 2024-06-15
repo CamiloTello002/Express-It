@@ -11,14 +11,13 @@ export default function RegisterPage() {
   // function to trigger when the form is submitted
   async function register(ev) {
     ev.preventDefault();
-    const response = await fetch(`${baseURL}/register`, {
+    const response = await fetch(`${baseURL}/api/v1/users/register`, {
       method: 'POST',
       body: JSON.stringify({ username, password }),
       headers: { 'Content-Type': 'application/json' },
     });
     alert(
-      `Registration ${
-        response.ok ? 'successful :). You can now log in' : 'failed :('
+      `Registration ${response.ok ? 'successful :). You can now log in' : 'failed :('
       }`
     );
   }

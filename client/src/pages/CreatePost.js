@@ -88,7 +88,7 @@ export default function CreatePost() {
     formData.append('content', content);
     file !== null && formData.append('file', file[0]);
 
-    const response = await fetch(`${baseURL}/create-post`, {
+    const response = await fetch(`${baseURL}/api/v1/create-post`, {
       method: 'POST',
       body: formData,
       // We need to send the cookie because the user information is there
