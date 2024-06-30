@@ -8,6 +8,7 @@ const globalErrorHandler = require('./controllers/errorController');
 const postRouter = require('./routes/postRoutes');
 const userRouter = require('./routes/userRoutes');
 
+
 const app = express();
 
 const corsOptions = {
