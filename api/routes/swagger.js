@@ -7,7 +7,7 @@ const options = {
         openapi: '3.0.0',
         info: { title: 'Express It API', version: '1.0.0' },
     },
-    apis: ['api/routes/*Routes.js']
+    apis: ['./routes/*Routes.js']
 }
 
 // Docs in JSON format
