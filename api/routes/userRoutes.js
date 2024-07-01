@@ -29,7 +29,31 @@ const router = express.Router();
  *                          - username
  *                          - password
  *     responses:
- *          required: true
+ *          '201':
+ *              description: User created successfully
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              status:
+ *                                  type: string
+ *                                  example: success
+ *                              message:
+ *                                  type: string
+ *                                  example: Register successful!
+ *                              data:
+ *                                  type: object
+ *                                  properties:
+ *                                      user:
+ *                                          type: object
+ *                                          properties:
+ *                                              id:
+ *                                                  type: string
+ *                                                  example: 60c72b2f9b1d8e00215b78a0
+ *                                              username:
+ *                                                  type: string
+ *                                                  example: Berkley
  */
 router.post('/register', authController.register);
 router.post('/login', authController.login);

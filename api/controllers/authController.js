@@ -17,12 +17,14 @@ exports.register = async (req, res, next) => {
             username: req.body.username,
             password: hashedPassword,
         });
-        res.status(200).json({
+        res.status(201).json({
             message: 'Register successful!',
         });
     } catch (error) {
         if (error.errorResponse.code === 11000)
             return next(new AppError('This user already exists', 400))
+
+        return next(new AppError('Internal Server Error', 500));
     }
 }
 
