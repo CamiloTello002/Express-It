@@ -8,23 +8,28 @@ const router = express.Router();
  * @openapi
  * /api/v1/register:
  *   post:
+ *     summary: This endpoint allows a new user to register by providing a username and a password.
  *     tags:
  *       - User
+ *     requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          username:
+ *                              type: string
+ *                              example: Berkley
+ *                          password:
+ *                              type: string
+ *                              format: password
+ *                              example: Astonishing
+ *                      required:
+ *                          - username
+ *                          - password
  *     responses:
- *       200:
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: OK
- *                 data:
- *                   type: array 
- *                   items: 
- *                     type: object
+ *          required: true
  */
 router.post('/register', authController.register);
 router.post('/login', authController.login);
