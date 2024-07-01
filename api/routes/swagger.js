@@ -5,7 +5,13 @@ const swaggerUi = require('swagger-ui-express')
 const options = {
     definition: {
         openapi: '3.0.0',
-        info: { title: 'Express It API', version: '1.0.0' },
+        info: { title: 'Express It API', version: '1.0.0', description: "This API is for managing database information about blog posts and their users." },
+        servers: [
+            {
+                url: 'https://express-it.onrender.com',
+                description: 'Production server'
+            }
+        ]
     },
     apis: ['./routes/*Routes.js']
 }
