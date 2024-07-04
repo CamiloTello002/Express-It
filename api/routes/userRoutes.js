@@ -41,11 +41,12 @@ const router = express.Router();
  *                                  example: Registered successfully!
  */
 router.post('/register', authController.register);
+
 /**
  * @openapi
  * /api/v1/users/login:
  *   post:
- *     summary: This endpoint allows an existing user to log in and start making posts.
+ *     summary: This endpoint allows an existing user to log in. In order to use this endpoint, you must make sure you already have an account created. For performing this action, you can refer to the register endpoint
  *     tags:
  *       - User
  *     requestBody:
@@ -66,34 +67,19 @@ router.post('/register', authController.register);
  *                          - username
  *                          - password
  *     responses:
- *          '201':
- *              description: User created successfully
+ *          '200':
+ *              description: User logged in successfully.
  *              content:
  *                  application/json:
  *                      schema:
  *                          type: object
  *                          properties:
- *                              status:
- *                                  type: string
- *                                  example: success
  *                              message:
  *                                  type: string
- *                                  example: Register successful!
- *                              data:
- *                                  type: object
- *                                  properties:
- *                                      user:
- *                                          type: object
- *                                          properties:
- *                                              id:
- *                                                  type: string
- *                                                  example: 60c72b2f9b1d8e00215b78a0
- *                                              username:
- *                                                  type: string
- *                                                  example: Berkley
+ *                                  example: successfully logged in!
  */
 router.post('/login', authController.login);
-router.post('/logout', authController.logout);
+router.get('/logout', authController.logout);
 
 // Protect following routes. Only logged users can access them
 router.use(authController.protect);
