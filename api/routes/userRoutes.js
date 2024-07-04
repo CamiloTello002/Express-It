@@ -36,24 +36,9 @@ const router = express.Router();
  *                      schema:
  *                          type: object
  *                          properties:
- *                              status:
- *                                  type: string
- *                                  example: success
  *                              message:
  *                                  type: string
- *                                  example: Register successful!
- *                              data:
- *                                  type: object
- *                                  properties:
- *                                      user:
- *                                          type: object
- *                                          properties:
- *                                              id:
- *                                                  type: string
- *                                                  example: 60c72b2f9b1d8e00215b78a0
- *                                              username:
- *                                                  type: string
- *                                                  example: Berkley
+ *                                  example: Registered successfully!
  */
 router.post('/register', authController.register);
 /**

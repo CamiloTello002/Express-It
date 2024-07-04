@@ -18,7 +18,7 @@ exports.register = async (req, res, next) => {
             password: hashedPassword,
         });
         res.status(201).json({
-            message: 'Register successful!',
+            message: 'Registered successfully!',
         });
     } catch (error) {
         if (error.errorResponse.code === 11000)
