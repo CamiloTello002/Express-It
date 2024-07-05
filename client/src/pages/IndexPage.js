@@ -31,6 +31,9 @@ export default function IndexPage() {
     };
   }, []);
   return (
-    <>{blogPosts.length > 0 && blogPosts.map((post) => <Post {...post} />)}</>
+
+    <>
+      {blogPosts.length > 0 && blogPosts.map((post) => <Post key={post._id} {...post} />)}
+    </>
   );
 }

@@ -12,26 +12,25 @@ export default function LoginPage() {
 
   async function login(ev) {
     ev.preventDefault();
-    // const response = await fetch(URLToAPI, {
-    console.log(process.env.REACT_APP_NODE_ENV);
-    console.log(process.env.REACT_APP_NODE_ENV === 'development');
-    console.log(typeof process.env.REACT_APP_NODE_ENV);
-    console.log(baseURL);
-    const response = await fetch(`${baseURL}${pathURLcb}`, {
-      method: 'POST',
-      body: JSON.stringify({ username, password }),
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-    });
-    // alert(`Login ${response.ok ? 'successful :)' : 'failed :('}`);
-    if (response.ok) {
-      // json-ize the response first
-      const resJson = await response.json();
-      // here we update user information before rendering the header
-      setUserInfo(resJson);
-      setRedirect(true);
-    } else {
-      alert('wrong credentials!');
+    try {
+      const response = await fetch(`${baseURL}${pathURLcb}`, {
+        method: 'POST',
+        body: JSON.stringify({ username, password }),
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+      });
+      if (response.ok) {
+        // json-ize the response first
+        const resJson = await response.json();
+        // here we update user information before rendering the header
+        setUserInfo(resJson);
+        setRedirect(true);
+      } else {
+        alert('wrong credentials!');
+      }
+    } catch (error) {
+      console.log(error);
+
     }
 
     // In case the response was successful, then we're redirected to the main page
@@ -42,8 +41,6 @@ export default function LoginPage() {
   return (
     <form onSubmit={login} className="login">
       <h1>Login</h1>
-      {/* <input type="text" placeholder="username" />
-      <input type="password" placeholder="······" /> */}
       <input
         type="text"
         placeholder="username"
