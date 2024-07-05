@@ -1,8 +1,8 @@
 import ReactQuill from 'react-quill';
-import { baseURL } from 'config';
 import { useEffect, useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import { Navigate, useParams } from 'react-router-dom';
+import { baseURL } from './../services/config';;
 
 // include modules (for customization)
 const modules = {

@@ -1,4 +1,4 @@
-import { baseURL } from 'config';
+import { baseURL } from './../services/config';
 import { formatISO9075 } from 'date-fns';
 import { Link } from 'react-router-dom';
 

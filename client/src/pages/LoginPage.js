@@ -1,7 +1,7 @@
 import { UserContext } from 'UserContext';
 import { useContext, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { baseURL } from 'config';
+import { baseURL } from './../services/config';;
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

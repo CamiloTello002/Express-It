@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { baseURL } from 'config';
+import { baseURL } from './../services/config';;
 export default function RegisterPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

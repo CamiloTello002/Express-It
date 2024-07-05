@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Post from '../components/Post';
-import { baseURL } from 'config';
+import { baseURL } from './../services/config';;
 
 export default function IndexPage() {
 
