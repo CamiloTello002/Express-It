@@ -1,21 +1,19 @@
 import { useEffect, useState } from 'react';
 import Post from '../Post';
 import { baseURL } from 'config';
-// import { API_PORT } from 'config';
 
 export default function IndexPage() {
-  // const baseURL = `${API_DOMAIN}:${API_PORT}`;
-  // const postsPath = '/posts';
 
+  // Initially an empty array
   const [blogPosts, setBlogPosts] = useState([]);
 
-  // posts must be got from the server
+  // Function that's run right after the rendering
   useEffect(() => {
     const controller = new AbortController();
 
+    // Define async function and run it
     const fetchData = async () => {
       try {
-        // const posts = await fetch(URLToPosts, {
         const posts = await fetch(`${baseURL}/api/v1/posts`, {
           credentials: 'include',
           signal: controller.signal,
@@ -23,6 +21,7 @@ export default function IndexPage() {
         });
         const postsJSON = await posts.json();
         setBlogPosts(postsJSON.posts);
+        console.log(postsJSON.posts)
       } catch (error) { }
     };
     fetchData();
