@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 /** For API documentation */
 const { swaggerDocs } = require('./routes/swagger');
 
-// require('dotenv').config({ path: './.env' });
 const port = process.env.PORT || 5000;
 
 mongoose
