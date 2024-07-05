@@ -69,6 +69,10 @@ router.post('/register', authController.register);
  *     responses:
  *          '200':
  *              description: User logged in successfully.
+ *              headers:
+ *                  Set-Cookie:
+ *                      schema:
+ *                          type: string
  *              content:
  *                  application/json:
  *                      schema:
@@ -79,6 +83,29 @@ router.post('/register', authController.register);
  *                                  example: successfully logged in!
  */
 router.post('/login', authController.login);
+
+/**
+ * @openapi
+ * /api/v1/users/logout:
+ *   get:
+ *     tags:
+ *       - User
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ *                 data:
+ *                   type: array 
+ *                   items: 
+ *                     type: object
+ */
 router.get('/logout', authController.logout);
 
 // Protect following routes. Only logged users can access them
