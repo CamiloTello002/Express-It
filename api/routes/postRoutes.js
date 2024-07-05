@@ -11,7 +11,7 @@ const authController = require('./../controllers/authController')
  *       - Posts
  *     responses:
  *       200:
- *         description: OK
+ *         description: the posts were successfully retrieved.
  *         content:
  *           application/json:
  *             schema:
@@ -19,11 +19,12 @@ const authController = require('./../controllers/authController')
  *               properties:
  *                 status:
  *                   type: string
- *                   example: OK
- *                 data:
- *                   type: array 
- *                   items: 
- *                     type: object
+ *                   example: success
+ *                 message:
+ *                   type: string 
+ *                   example: Posts already returned
+ *                 posts:
+ *                    type: array
  */
 router.get('/', controller.getPosts);
 router.get('/:id', controller.getPost);

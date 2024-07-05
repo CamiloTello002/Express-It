@@ -39,6 +39,16 @@ const router = express.Router();
  *                              message:
  *                                  type: string
  *                                  example: Registered successfully!
+ *          '400':
+ *              description: User already exists
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          properties:
+ *                              message:
+ *                                  type: string
+ *                                  example: This user already exists
  */
 router.post('/register', authController.register);
 

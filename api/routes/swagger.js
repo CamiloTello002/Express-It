@@ -10,6 +10,10 @@ const options = {
             {
                 url: 'https://express-it.onrender.com',
                 description: 'Production server'
+            },
+            {
+                url: 'http://localhost:4000/',
+                description: 'Local server'
             }
         ]
     },
