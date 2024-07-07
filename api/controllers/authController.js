@@ -61,6 +61,7 @@ exports.logout = async (req, res) => {
 
 exports.protect = async (req, res, next) => {
     let token;
+    console.log('hit route.');
     if (req.cookies.token) {
         token = req.cookies.token;
     } else {

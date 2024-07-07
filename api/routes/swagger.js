@@ -6,6 +6,21 @@ const options = {
     definition: {
         openapi: '3.0.0',
         info: { title: 'Express It API', version: '1.0.0', description: "This API is for managing database information about blog posts and their users." },
+        components: {
+            securitySchemes: {
+                CookieAuth: {
+                    type: 'apiKey',
+                    in: 'cookie',
+                    name: 'token',
+                    description: 'Cookie-based authentication with the `token` cookie'
+                },
+            },
+        },
+        security: [
+            {
+                CookieAuth: [],
+            },
+        ],
         servers: [
             {
                 url: 'https://express-it.onrender.com',
@@ -15,7 +30,7 @@ const options = {
                 url: 'http://localhost:4000/',
                 description: 'Local server'
             }
-        ]
+        ],
     },
     apis: ['./routes/*Routes.js']
 }
