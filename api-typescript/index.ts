@@ -1,9 +1,11 @@
+import { Request, Response } from "express";
+
 const express = require('express');
 
 const app = express();
 const port = 4001;
 
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
     res.send('it works');
 })
 
