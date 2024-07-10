@@ -1,14 +1,15 @@
-import { Request, Response } from "express";
+import express, { Express, Request, Response } from "express";
 
-const express = require('express');
-
-const app = express();
+const app: Express = express();
 const port: number = 4001;
 
 app.get('/', (req: Request, res: Response) => {
-    res.send('no se mano');
-})
+    res.status(200).json({
+        status: 'success',
+        payload: 'this endpoint indeed works!'
+    })
+});
 
 app.listen(port, () => {
     console.log(`connected to port ${port}`)
-})
+});
