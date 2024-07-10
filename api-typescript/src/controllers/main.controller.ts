@@ -10,7 +10,5 @@ export function getUsers(req: Request, res: Response){
         {name: "grace", age: 32},
         {name: "Joe", age: 40}
     ];
-    res.status(200).json({
-        users
-    })
+    res.send([]);
 }
