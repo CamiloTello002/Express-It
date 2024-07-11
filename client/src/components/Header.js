@@ -14,7 +14,7 @@ export default function Header() {
           credentials: 'include',
           signal: controller.signal,
         });
-        const json = response.json();
+        const json = await response.json();
         setUserInfo(json);
       } catch (err) { }
     };
