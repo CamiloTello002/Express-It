@@ -1,4 +1,4 @@
-import { Model, model, Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 
 // 1) create an interface that represents a document in MongoDB
 interface IUser {
